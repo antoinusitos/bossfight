@@ -133,31 +133,31 @@ public class Boss : MonoBehaviour {
 
 	void Pattern1()
 	{
-		Debug.Log ("pattern1");
+		//Debug.Log ("pattern1");
 		if(timeToAttack >= delayAttack)
 		{
 			timeToAttack = 0f;
-			Debug.Log ("attaque pattern1 !");
+			//Debug.Log ("attaque pattern1 !");
 		}
 	}
 
 	void Pattern2()
 	{
-		Debug.Log ("pattern2");
+		//Debug.Log ("pattern2");
 		if(timeToAttack >= delayAttack)
 		{
 			timeToAttack = 0f;
-			Debug.Log ("attaque pattern2 !");
+			//Debug.Log ("attaque pattern2 !");
 		}
 	}
 
 	void Pattern3()
 	{
-		Debug.Log ("pattern3");
+		//Debug.Log ("pattern3");
 		if(timeToAttack >= delayAttack)
 		{
 			timeToAttack = 0f;
-			Debug.Log ("attaque pattern3 !");
+			//Debug.Log ("attaque pattern3 !");
 		}
 	}
 
@@ -184,18 +184,23 @@ public class Boss : MonoBehaviour {
 
 	public void TakeDamage(int theDamage)
 	{
-		if(shield > 0)
+		if(currentState != State.Platform)
 		{
-			shield -= theDamage;
+			if(shield > 0)
+			{
+				shield -= theDamage;
+				if (shield < 0)
+					shield = 0;
+			}
+			else
+			{
+				life -= theDamage;
+			}
+			if(life <= 0)
+			{
+				currentState = State.Dead;
+			}
+			ChooseState ();
 		}
-		else
-		{
-			life -= theDamage;
-		}
-		if(life <= 0)
-		{
-			currentState = State.Dead;
-		}
-		ChooseState ();
 	}
 }

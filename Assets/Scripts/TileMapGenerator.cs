@@ -27,6 +27,7 @@ public class TileMapGenerator : MonoBehaviour {
 
 
 	public GameObject player;
+	public GameObject boss;
     
 
 	// Use this for initialization
@@ -128,7 +129,8 @@ public class TileMapGenerator : MonoBehaviour {
         }
 
 		Debug.Log ("fin");
-		Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity);
+		Instantiate (player, new Vector3 (tileMapSize / 3, 0, tileMapSize / 3), Quaternion.identity);
+		Instantiate (boss, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity);
     }
 
     void CorridorGeneration()
