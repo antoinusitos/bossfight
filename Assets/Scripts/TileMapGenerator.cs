@@ -15,6 +15,8 @@ public class TileMapGenerator : MonoBehaviour {
     public TileType[] tileType;
 	public GameObject canon;
     public GameObject cam;
+    public GameObject player;
+    private GameObject pl;
     GameObject t ;
 
 	private int indexTileMap = 0;
@@ -22,22 +24,26 @@ public class TileMapGenerator : MonoBehaviour {
 	public Tile[] tileMapCorridor;
     public int tileMapSize = 0;
 	public int CorridorLarger = 0;
+    public List<Tile> listBossBomb;
 	Tile tile;
 	private Vector3 playerPos;
 
 
-	public GameObject player;
+	
     
 
 	// Use this for initialization
 	void Start ()
     {
+        listBossBomb = new List<Tile>();
 		indexTileMap = 0;
 
 		playerPos = new Vector3(2.7f, 1.5f, 0f);
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
+        DoListOfBomb(11.0f, 11.0f, 3);
         Generation();
+        
 	
 	}
 	
@@ -45,19 +51,33 @@ public class TileMapGenerator : MonoBehaviour {
 	void Update ()
     {
 		if(Input.GetKey(KeyCode.Space)){
-            FindCoord(playerPos);
+            Debug.Log(CoordToIndex(pl.transform.position.x, pl.transform.position.z));
+            Debug.Log(tileMap[CoordToIndex(1.0f, 1.0f)].type);
 		}
 	}
 
-    void FindCoord(Vector3 pos)
+
+    void DoListOfBomb(float x, float y, int range)
     {
-        for (int i = 0; i < tileMap.Length; ++i)
+        for (int i = (int)x - range; i <= x + range; ++i)
         {
-            if (tileMap[i].x == Mathf.Floor(pos.x) && tileMap[i].y == Mathf.Floor(pos.y))
+            for (int j = (int)y - range; j <= y + range; ++j)
             {
-                Debug.Log("Bombe en: " + tileMap[i].x + "," + tileMap[i].y);
+                if (!((i>= x-1 && i<= x+1) && (j >= y-1 && j <= y+1)))
+                {
+                    listBossBomb.Add(tileMap[CoordToIndex(i, j)]);
+                    tileMap[CoordToIndex(i, j)].type = 1;
+                }
+                
             }
         }
+    }
+
+    public int CoordToIndex(float x, float y)
+    {
+        int index = (int)(x+0.5f) + ((int)(y+0.5f) * TileMapGenerator.instance.tileMapSize);
+
+        return index;
     }
 
     void InitMapGeneration()
@@ -85,14 +105,9 @@ public class TileMapGenerator : MonoBehaviour {
 		//ouverture sur couloir
 		if (CorridorLarger >2) 
 		{
-			indexTileMap = (tileMapSize-1)+((tileMapSize/2 -1)*tileMapSize);
-			tileMap[indexTileMap].SetTile(tileMapSize-1,tileMapSize/2 -1,0);
-			
-			indexTileMap = (tileMapSize-1)+((tileMapSize/2)*tileMapSize);
-			tileMap[indexTileMap].SetTile(tileMapSize-1,tileMapSize/2,0);
-			
-			indexTileMap = (tileMapSize-1)+((tileMapSize/2 +1)*tileMapSize);
-			tileMap[indexTileMap].SetTile(tileMapSize-1,tileMapSize/2 +1,0);
+            tileMap[CoordToIndex(tileMapSize-1, tileMapSize/2 -1)].type = 2;
+            tileMap[CoordToIndex(tileMapSize-1, tileMapSize/2 )].type = 2;
+            tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2 + 1)].type = 2;
 
 			CorridorGeneration();
 		}
@@ -127,8 +142,7 @@ public class TileMapGenerator : MonoBehaviour {
             }
         }
 
-		Debug.Log ("fin");
-		Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity);
+		pl = Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity) as GameObject;
     }
 
     void CorridorGeneration()
@@ -144,7 +158,7 @@ public class TileMapGenerator : MonoBehaviour {
         {
 			for (int x = tileMapSize; x < tileMapSize + CorridorLarger; ++x)
             {
-				if(((x >= tileMapSize+1 && x < tileMapSize + CorridorLarger-1) && (y <= tileMapSize/2+1 && y > tileMapSize/2-2)) ||
+				if(((x >= tileMapSize && x < tileMapSize + CorridorLarger-1) && (y <= tileMapSize/2+1 && y > tileMapSize/2-2)) ||
 				    ((x >= tileMapSize + CorridorLarger-4 && x < tileMapSize + CorridorLarger-1) && (y <= tileMapSize/2-2 && y > 0)))
 				{
 					tileMapCorridor[index] = new Tile();
@@ -187,7 +201,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (x % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -199,7 +213,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (x % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -211,7 +225,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (y % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() !=1 )
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -223,7 +237,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (y % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -238,7 +252,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (x % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -250,7 +264,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (x % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -262,7 +276,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (y % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }
@@ -274,7 +288,7 @@ public class TileMapGenerator : MonoBehaviour {
 				indexTileMap = x+(y*tileMapSize);
 				if (y % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
-					tileMap[indexTileMap].SetTile(x,y,1);
+					tileMap[indexTileMap].SetTile(x,y,2);
                 }
             }
         }

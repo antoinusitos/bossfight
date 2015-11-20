@@ -12,7 +12,6 @@ public class PatternCanon : MonoBehaviour {
 
 	void Start () {
 		transform.position = TileMapGenerator.instance.tileMapCorridor[TileMapGenerator.instance.CorridorLarger-3].GetPosition();
-		Debug.Log(TileMapGenerator.instance.canon.transform.position);
 
 		shootType = ShootType.Type1;
 
