@@ -23,12 +23,7 @@ public class TileMapGenerator : MonoBehaviour {
     public int tileMapSize = 0;
 	public int CorridorLarger = 0;
 	Tile tile;
-	private Vector3 playerPos;
-
-
-	public GameObject player;
-	public GameObject boss;
-    
+	private Vector3 playerPos;    
 
 	// Use this for initialization
 	void Start ()
@@ -101,8 +96,7 @@ public class TileMapGenerator : MonoBehaviour {
 		/*************************/
         BlockGeneration();
 
-        
-
+		GameManager.instance.SpawnEntities ();
 
     }
 
@@ -127,10 +121,7 @@ public class TileMapGenerator : MonoBehaviour {
                 t.transform.parent = parent.transform;
             }
         }
-
-		Debug.Log ("fin");
-		Instantiate (player, new Vector3 (tileMapSize / 3, 0, tileMapSize / 3), Quaternion.identity);
-		Instantiate (boss, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity);
+		
     }
 
     void CorridorGeneration()

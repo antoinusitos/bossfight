@@ -3,6 +3,9 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject player;
+	public GameObject boss;
+
 	static GameManager mInst;
 	static public GameManager instance { get { return mInst; } }
 	void Awake()
@@ -23,5 +26,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void SpawnEntities()
+	{
+		Instantiate (player, new Vector3 (TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f, 0f, TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f), Quaternion.identity);
+		Instantiate (boss, new Vector3 (TileMapGenerator.instance.tileMapSize / 2.0f, 0f, TileMapGenerator.instance.tileMapSize / 2.0f), Quaternion.identity);
 	}
 }

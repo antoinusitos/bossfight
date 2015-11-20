@@ -13,7 +13,7 @@ public class Bombes : MonoBehaviour {
 
     void Start()
     {
-        degats = 50;
+        degats = 10;
         porte = 3;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;

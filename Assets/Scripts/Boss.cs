@@ -24,6 +24,7 @@ public class Boss : MonoBehaviour {
     public float delayShield;
     public bool hasPlatforming;
     public int quart;
+	public GameObject bomb;
 
 	void Start()
 	{
@@ -138,6 +139,8 @@ public class Boss : MonoBehaviour {
 		{
 			timeToAttack = 0f;
 			//Debug.Log ("attaque pattern1 !");
+			//Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
+			SpawnBomb();
 		}
 	}
 
@@ -148,6 +151,8 @@ public class Boss : MonoBehaviour {
 		{
 			timeToAttack = 0f;
 			//Debug.Log ("attaque pattern2 !");
+			//Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
+			SpawnBomb();
 		}
 	}
 
@@ -158,6 +163,25 @@ public class Boss : MonoBehaviour {
 		{
 			timeToAttack = 0f;
 			//Debug.Log ("attaque pattern3 !");
+			//Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
+			SpawnBomb();
+		}
+	}
+
+	void SpawnBomb()
+	{
+		for(int i = 0; i < 5; i++)
+		{
+			float rand = Random.Range(0.0f, 1.0f);
+			int value = Random.Range(2, 4);
+			float rand2 = Random.Range(0.0f, 1.0f);
+			int value2 = Random.Range(2, 4);
+			if(rand >= 0.5f)
+				value = value * -1;
+			if(rand2 >= 0.5f)
+				value2 = value2* -1;
+			Debug.Log("rand:"+rand+" rand2:"+rand2);
+			Instantiate(bomb, transform.position + new Vector3(value, 0, value2), Quaternion.identity);
 		}
 	}
 
