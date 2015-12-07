@@ -73,6 +73,11 @@ public class TileMapGenerator : MonoBehaviour {
         }
     }
 
+    public Tile GetTileWithCoord(float x, float y)
+    {
+        return tileMap[CoordToIndex(x, y)];
+    }
+
     public int CoordToIndex(float x, float y)
     {
         int index = (int)(x+0.5f) + ((int)(y+0.5f) * TileMapGenerator.instance.tileMapSize);
