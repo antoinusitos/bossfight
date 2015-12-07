@@ -76,7 +76,6 @@ public class playerScript : MonoBehaviour {
            GameObject bombe = Instantiate(prefabBombe, transform.position, Quaternion.identity) as GameObject;
            bombe.GetComponent<Bombes>().SetParent(gameObject);
            peutPoser = false;
-           Debug.Log(TileMapGenerator.instance.GetTileWithCoord(transform.position.x, transform.position.z).GetPosition());
        }
            
 
