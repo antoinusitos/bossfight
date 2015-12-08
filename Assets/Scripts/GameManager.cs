@@ -17,14 +17,19 @@ public class GameManager : MonoBehaviour {
 	public enum GameState {Tuto, Game}
 
 	public GameState gameState;
+    public GameObject bossPrefab;
+    public GameObject bossInstance;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        TileMapGenerator.instance.Init();
+        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition() /*+ new Vector3(1f, 0, 1f)*/, Quaternion.identity);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
 	}
 

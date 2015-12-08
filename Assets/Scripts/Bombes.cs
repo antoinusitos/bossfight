@@ -48,14 +48,13 @@ public class Bombes : MonoBehaviour {
 
         if (Physics.Raycast(transform.position, Vector3.forward * porte, out hit, porte))
         {
-           // print("There is something in front of the object!");
+            //print("There is something in front of the object!");
             /*if(hit.transform.GetComponent<Player>() != null)
             {
                 hit.transform.GetComponent<Player>().TakeDamage(degats);
             }*/
             if (hit.transform.GetComponent<Boss>() != null)
             {
-				print("boss take damage!");
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
         }
@@ -68,33 +67,30 @@ public class Bombes : MonoBehaviour {
             }*/
             if (hit.transform.GetComponent<Boss>() != null)
             {
-				print("boss take damage!");
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
         {
-           // print("There is something in right of the object!");
+            //print("There is something in right of the object!");
             /*if(hit.transform.GetComponent<Player>() != null)
             {
                 hit.transform.GetComponent<Player>().TakeDamage(degats);
             }*/
             if (hit.transform.GetComponent<Boss>() != null)
             {
-				print("boss take damage!");
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
         }
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
         {
-           // print("There is something in left of the object!");
+            //print("There is something in left of the object!");
             /*if(hit.transform.GetComponent<Player>() != null)
             {
                 hit.transform.GetComponent<Player>().TakeDamage(degats);
             }*/
             if (hit.transform.GetComponent<Boss>() != null)
             {
-				print("boss take damage!");
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
         }
