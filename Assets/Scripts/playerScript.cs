@@ -7,6 +7,7 @@ public class playerScript : MonoBehaviour {
     public float deadZone = 0.5f;
     public int playerNumber;
     public float gravity = 20.0F;
+    public int life = 100;
 
     bool peutPoser = true;
 
@@ -87,6 +88,15 @@ public class playerScript : MonoBehaviour {
     {
         peutPoser = newBool;   
     
+    }
+
+    public void TakeDamage(int theDamage)
+    {
+        life -= theDamage;
+        if (life <= 0)
+        {
+            //mort
+        }
     }
 
 }

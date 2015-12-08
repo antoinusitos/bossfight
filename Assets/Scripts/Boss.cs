@@ -173,16 +173,17 @@ public class Boss : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            float rand = Random.Range(0.0f, 1.0f);
+            /*float rand = Random.Range(0.0f, 1.0f);
             int value = Random.Range(2, 4);
             float rand2 = Random.Range(0.0f, 1.0f);
             int value2 = Random.Range(2, 4);
             if (rand >= 0.5f)
                 value = value * -1;
             if (rand2 >= 0.5f)
-                value2 = value2 * -1;
+                value2 = value2 * -1;*/
             //Debug.Log("rand:" + rand + " rand2:" + rand2);
-            Instantiate(bomb, transform.position + new Vector3(value, 0, value2), Quaternion.identity);
+            Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
+            Instantiate(bomb, pos, Quaternion.identity);
         }
     }
 

@@ -36,7 +36,7 @@ public class TileMapGenerator : MonoBehaviour {
         playerPos = new Vector3(2.7f, 1.5f, 0f);
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
-        DoListOfBomb(11.0f, 11.0f, 3);
+        DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 2);
         Generation();
     }
 	
@@ -59,16 +59,22 @@ public class TileMapGenerator : MonoBehaviour {
                 if (!((i>= x-1 && i<= x+1) && (j >= y-1 && j <= y+1)))
                 {
                     listBossBomb.Add(tileMap[CoordToIndex(i, j)]);
-                    tileMap[CoordToIndex(i, j)].type = 1;
+                   // tileMap[CoordToIndex(i, j)].type = 1;
                 }
                 
             }
         }
     }
 
+    public Tile GetRandomBombPlace()
+    {
+        int index = Random.Range(0, listBossBomb.Count);
+        return listBossBomb[index];
+    }
+
     public Tile GetMiddleTile()
     {
-        return tileMap[(tileMapSize * tileMapSize / 2) - (tileMapSize / 2)];
+        return tileMap[(tileMapSize * ((tileMapSize / 2) + 1)) - ((tileMapSize / 2) + 1)];
     }
 
     public Tile GetTileWithCoord(float x, float y)

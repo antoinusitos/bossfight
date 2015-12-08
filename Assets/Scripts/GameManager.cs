@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	void Start () 
     {
         TileMapGenerator.instance.Init();
-        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition(), Quaternion.identity);
+        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition() /*+ new Vector3(1f, 0, 1f)*/, Quaternion.identity);
 	}
 	
 	// Update is called once per frame
