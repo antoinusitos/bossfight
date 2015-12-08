@@ -28,24 +28,17 @@ public class TileMapGenerator : MonoBehaviour {
 	Tile tile;
 	private Vector3 playerPos;
 
-
-	
-    
-
-	// Use this for initialization
-	void Start ()
+    public void Init()
     {
         listBossBomb = new List<Tile>();
-		indexTileMap = 0;
+        indexTileMap = 0;
 
-		playerPos = new Vector3(2.7f, 1.5f, 0f);
+        playerPos = new Vector3(2.7f, 1.5f, 0f);
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
         DoListOfBomb(11.0f, 11.0f, 3);
         Generation();
-        
-	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -71,6 +64,11 @@ public class TileMapGenerator : MonoBehaviour {
                 
             }
         }
+    }
+
+    public Tile GetMiddleTile()
+    {
+        return tileMap[(tileMapSize * tileMapSize / 2) - (tileMapSize / 2)];
     }
 
     public Tile GetTileWithCoord(float x, float y)

@@ -181,7 +181,7 @@ public class Boss : MonoBehaviour
                 value = value * -1;
             if (rand2 >= 0.5f)
                 value2 = value2 * -1;
-            Debug.Log("rand:" + rand + " rand2:" + rand2);
+            //Debug.Log("rand:" + rand + " rand2:" + rand2);
             Instantiate(bomb, transform.position + new Vector3(value, 0, value2), Quaternion.identity);
         }
     }
