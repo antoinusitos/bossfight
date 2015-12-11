@@ -27,6 +27,9 @@ public class Boss : MonoBehaviour
     public int quart;
     public GameObject bomb;
 
+    private AudioSource bossDamages;
+    private AudioSource bossDeath;
+
     void Start()
     {
         quart = 4;
@@ -41,6 +44,9 @@ public class Boss : MonoBehaviour
         hasPlatforming = false;
         timeToShield = 0f;
         delayShield = 1.0f;
+
+        bossDamages = SoundManager.instance.bossDamages.GetComponent<AudioSource>();
+        bossDeath = SoundManager.instance.bossDeath.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -214,6 +220,9 @@ public class Boss : MonoBehaviour
         {
             if (shield > 0)
             {
+                // son dégats boss
+                bossDamages.Play();
+
                 shield -= theDamage;
                 if (shield < 0)
                     shield = 0;
@@ -224,6 +233,9 @@ public class Boss : MonoBehaviour
             }
             if (life <= 0)
             {
+                //son mort boss
+                bossDeath.Play();
+
                 currentState = State.Dead;
             }
             ChooseState();

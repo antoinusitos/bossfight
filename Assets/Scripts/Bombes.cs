@@ -11,12 +11,16 @@ public class Bombes : MonoBehaviour {
     int posY;
     GameObject parent = null;
 
+    private AudioSource bombe;
+
     void Start()
     {
         degats = 10;
         porte = 3;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
+
+        bombe = SoundManager.instance.bombeExplosion.GetComponent<AudioSource>();
     }
 
     void Pose(int X, int Y)
@@ -37,6 +41,8 @@ public class Bombes : MonoBehaviour {
         {
             sendDegat();
             parent.GetComponent<playerScript>().SetPeutPoser(true);
+            // play bombe explosion
+            bombe.Play();
             Destroy(gameObject);
         }
     }
