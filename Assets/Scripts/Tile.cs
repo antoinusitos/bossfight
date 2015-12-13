@@ -2,18 +2,20 @@
 using System.Collections;
 
 [System.Serializable]
-public class Tile
+public class Tile 
 {
 	public int x;
 	public int y;
 	public int z;
 	public int type;
+	public int life;
 
 	public void SetTile(int x, int z, int type)
 	{
 		this.x = x;
 		this.z = z;
 		this.type = type;
+		this.life = 1;
 	}
 
 	public int GetTypeAtCoord()
@@ -27,6 +29,4 @@ public class Tile
 
 		return position;
 	}
-
-
 }

@@ -5,6 +5,7 @@ public class BombBoss : MonoBehaviour
 {
 
     int degats;
+	int degatsBlocks;
     int porte;
     float delayExplode;
     float timeToExplode;
@@ -14,7 +15,8 @@ public class BombBoss : MonoBehaviour
     void Start()
     {
         degats = 30;
-        porte = 3;
+		degatsBlocks = 1;
+        porte = 10;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
     }
@@ -47,11 +49,10 @@ public class BombBoss : MonoBehaviour
             {
                 hit.transform.GetComponent<playerScript>().TakeDamage(degats);
             }
-            //if (hit.transform.GetComponent<Boss>() != null)
-            //{
-            //    print("boss take damage!");
-            //    hit.transform.GetComponent<Boss>().TakeDamage(degats);
-            //}
+			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            {
+                hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+            }
         }
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
         {
@@ -60,11 +61,10 @@ public class BombBoss : MonoBehaviour
             {
                 hit.transform.GetComponent<playerScript>().TakeDamage(degats);
             }
-            //if (hit.transform.GetComponent<Boss>() != null)
-            //{
-            //    print("boss take damage!");
-            //    hit.transform.GetComponent<Boss>().TakeDamage(degats);
-            //}
+			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+			{
+				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+			}
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
         {
@@ -73,6 +73,10 @@ public class BombBoss : MonoBehaviour
             {
                 hit.transform.GetComponent<playerScript>().TakeDamage(degats);
             }
+			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+			{
+				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+			}
             //if (hit.transform.GetComponent<Boss>() != null)
             //{
             //    print("boss take damage!");
@@ -86,6 +90,10 @@ public class BombBoss : MonoBehaviour
             {
                 hit.transform.GetComponent<playerScript>().TakeDamage(degats);
             }
+			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+			{
+				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+			}
             //if (hit.transform.GetComponent<Boss>() != null)
             //{
             //    print("boss take damage!");

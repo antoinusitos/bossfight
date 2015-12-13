@@ -17,7 +17,7 @@ public class TileMapGenerator : MonoBehaviour {
     public GameObject cam;
     public GameObject player;
     private GameObject pl;
-    GameObject t ;
+    public GameObject t ;
 
 	private int indexTileMap = 0;
 	public Tile[] tileMap;
