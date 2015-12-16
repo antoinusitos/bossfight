@@ -4,6 +4,7 @@ using System.Collections;
 public class Bombes : MonoBehaviour {
 
     int degats;
+    int degatsBlocks;
     int porte;
     float delayExplode;
     float timeToExplode;
@@ -14,6 +15,7 @@ public class Bombes : MonoBehaviour {
     void Start()
     {
         degats = 10;
+        degatsBlocks = 1;
         porte = 3;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
@@ -57,6 +59,10 @@ public class Bombes : MonoBehaviour {
             {
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            {
+                hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+            }
         }
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
         {
@@ -68,6 +74,10 @@ public class Bombes : MonoBehaviour {
             if (hit.transform.GetComponent<Boss>() != null)
             {
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
+            }
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            {
+                hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
             }
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
@@ -81,6 +91,10 @@ public class Bombes : MonoBehaviour {
             {
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
             }
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            {
+                hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
+            }
         }
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
         {
@@ -92,6 +106,10 @@ public class Bombes : MonoBehaviour {
             if (hit.transform.GetComponent<Boss>() != null)
             {
                 hit.transform.GetComponent<Boss>().TakeDamage(degats);
+            }
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            {
+                hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
             }
         }
     }

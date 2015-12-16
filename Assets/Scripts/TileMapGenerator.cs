@@ -36,7 +36,7 @@ public class TileMapGenerator : MonoBehaviour {
         playerPos = new Vector3(2.7f, 1.5f, 0f);
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
-        DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 2);
+        DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 4);
         Generation();
     }
 	
