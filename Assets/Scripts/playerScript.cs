@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour {
 
     public float speed = 10f;
     public float deadZone = 0.5f;
@@ -91,9 +91,13 @@ public class playerScript : MonoBehaviour {
     public void TakeDamage(int theDamage)
     {
         life -= theDamage;
+        if (playerNumber == 1)
+            UIManager.instance.ActutaliseP1(life);
+        else if (playerNumber == 2)
+            UIManager.instance.ActutaliseP2(life);
         if (life <= 0)
         {
-            //mort
+            Destroy(gameObject);
         }
     }
 

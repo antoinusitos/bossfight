@@ -26,13 +26,14 @@ public class Boss : MonoBehaviour
     public bool hasPlatforming;
     public int quart;
     public GameObject bomb;
+    public int interruptor;
 
     void Start()
     {
         quart = 4;
         lifeMax = 1000;
         life = lifeMax;
-        shieldMax = 20;
+        shieldMax = 150;
         shield = shieldMax;
         currentState = State.Pattern1;
         prevState = currentState;
@@ -40,7 +41,8 @@ public class Boss : MonoBehaviour
         delayAttack = 5.0f;
         hasPlatforming = false;
         timeToShield = 0f;
-        delayShield = 1.0f;
+        delayShield = 0.5f;
+        interruptor = 4;
     }
 
     void Update()
@@ -135,53 +137,35 @@ public class Boss : MonoBehaviour
 
     void Pattern1()
     {
-        //Debug.Log ("pattern1");
         if (timeToAttack >= delayAttack)
         {
             timeToAttack = 0f;
-            //Debug.Log ("attaque pattern1 !");
-            //Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
             SpawnBomb();
         }
     }
 
     void Pattern2()
     {
-        //Debug.Log ("pattern2");
         if (timeToAttack >= delayAttack)
         {
             timeToAttack = 0f;
-            //Debug.Log ("attaque pattern2 !");
-            //Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
             SpawnBomb();
         }
     }
 
     void Pattern3()
     {
-        //Debug.Log ("pattern3");
         if (timeToAttack >= delayAttack)
         {
             timeToAttack = 0f;
-            //Debug.Log ("attaque pattern3 !");
-            //Instantiate(bomb, transform.position + new Vector3(2.0f, 0, 2.0f), Quaternion.identity);
             SpawnBomb();
         }
     }
 
     void SpawnBomb()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
-            /*float rand = Random.Range(0.0f, 1.0f);
-            int value = Random.Range(2, 4);
-            float rand2 = Random.Range(0.0f, 1.0f);
-            int value2 = Random.Range(2, 4);
-            if (rand >= 0.5f)
-                value = value * -1;
-            if (rand2 >= 0.5f)
-                value2 = value2 * -1;*/
-            //Debug.Log("rand:" + rand + " rand2:" + rand2);
             Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
             Instantiate(bomb, pos, Quaternion.identity);
         }
@@ -194,11 +178,17 @@ public class Boss : MonoBehaviour
         {
             timeToShield = 0f;
             shield++;
+            UIManager.instance.ActutaliseBossShield(shield);
         }
         if (shield >= shieldMax)
         {
             shield = shieldMax;
             CompletePlatforming();
+        }
+        if (timeToAttack >= delayAttack)
+        {
+            timeToAttack = 0f;
+            SpawnBomb();
         }
     }
 
@@ -208,6 +198,16 @@ public class Boss : MonoBehaviour
         ChooseState();
     }
 
+    public void OneInterruptorHit()
+    {
+        interruptor--;
+        if(interruptor == 0)
+        {
+            CompletePlatforming();
+            interruptor = 4;
+        }
+    }
+
     public void TakeDamage(int theDamage)
     {
         if (currentState != State.Platform)
@@ -215,12 +215,14 @@ public class Boss : MonoBehaviour
             if (shield > 0)
             {
                 shield -= theDamage;
+                UIManager.instance.ActutaliseBossShield(shield);
                 if (shield < 0)
                     shield = 0;
             }
             else
             {
                 life -= theDamage;
+                 UIManager.instance.ActutaliseBoss(life);
             }
             if (life <= 0)
             {

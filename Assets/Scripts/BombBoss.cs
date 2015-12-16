@@ -12,10 +12,10 @@ public class BombBoss : MonoBehaviour
 
     void Start()
     {
-        degats = 30;
+        degats = 20;
 		degatsBlocks = 1;
-        porte = 3;
-        delayExplode = 1.0f;
+        porte = 5;
+        delayExplode = 2.0f;
         timeToExplode = 0.0f;
     }
 
@@ -37,11 +37,11 @@ public class BombBoss : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.forward * porte, out hit, porte))
         {
             // print("There is something in front of the object!");
-            if (hit.transform.GetComponent<playerScript>() != null)
+            if (hit.transform.GetComponent<PlayerScript>() != null)
             {
-                hit.transform.GetComponent<playerScript>().TakeDamage(degats);
+                hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
-			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
             {
                 hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
             }
@@ -49,11 +49,11 @@ public class BombBoss : MonoBehaviour
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
         {
             //print("There is something in back of the object!");
-            if (hit.transform.GetComponent<playerScript>() != null)
+            if (hit.transform.GetComponent<PlayerScript>() != null)
             {
-                hit.transform.GetComponent<playerScript>().TakeDamage(degats);
+                hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
-			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
 			{
 				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
 			}
@@ -61,11 +61,11 @@ public class BombBoss : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
         {
             // print("There is something in right of the object!");
-            if (hit.transform.GetComponent<playerScript>() != null)
+            if (hit.transform.GetComponent<PlayerScript>() != null)
             {
-                hit.transform.GetComponent<playerScript>().TakeDamage(degats);
+                hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
-			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
 			{
 				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
 			}
@@ -78,11 +78,11 @@ public class BombBoss : MonoBehaviour
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
         {
             // print("There is something in left of the object!");
-            if (hit.transform.GetComponent<playerScript>() != null)
+            if (hit.transform.GetComponent<PlayerScript>() != null)
             {
-                hit.transform.GetComponent<playerScript>().TakeDamage(degats);
+                hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
-			if (hit.transform.GetComponent<DestructibleBlock>() != null)
+            if (hit.transform.GetComponent<DestructibleBlock>() != null)
 			{
 				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
 			}

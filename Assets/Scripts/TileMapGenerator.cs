@@ -120,10 +120,6 @@ public class TileMapGenerator : MonoBehaviour {
 
 		/*************************/
         BlockGeneration();
-
-        
-
-
     }
 
     void Generation()
@@ -148,7 +144,7 @@ public class TileMapGenerator : MonoBehaviour {
             }
         }
 
-		pl = Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity) as GameObject;
+		//pl = Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity) as GameObject;
     }
 
     void CorridorGeneration()
