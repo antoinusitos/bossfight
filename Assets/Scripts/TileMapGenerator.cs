@@ -17,7 +17,7 @@ public class TileMapGenerator : MonoBehaviour {
     public GameObject cam;
     public GameObject player;
     private GameObject pl;
-    GameObject t ;
+    public GameObject t ;
 
 	private int indexTileMap = 0;
 	public Tile[] tileMap;
@@ -26,17 +26,14 @@ public class TileMapGenerator : MonoBehaviour {
 	public int CorridorLarger = 0;
     public List<Tile> listBossBomb;
 	Tile tile;
-	private Vector3 playerPos;
 
     public void Init()
     {
         listBossBomb = new List<Tile>();
         indexTileMap = 0;
-
-        playerPos = new Vector3(2.7f, 1.5f, 0f);
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
-        DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 2);
+        DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 4);
         Generation();
     }
 	
