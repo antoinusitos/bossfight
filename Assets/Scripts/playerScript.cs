@@ -7,6 +7,7 @@ public class playerScript : MonoBehaviour {
     public float deadZone = 0.5f;
     public int playerNumber;
     public float gravity = 20.0F;
+    public int life = 100;
 
     bool peutPoser = true;
 
@@ -73,7 +74,8 @@ public class playerScript : MonoBehaviour {
        tr = this.gameObject.transform.position;
        if (Input.GetButtonDown("Attack_" + playerNumber) && peutPoser)
        {
-           GameObject bombe = Instantiate(prefabBombe, transform.position, Quaternion.identity) as GameObject;
+           Vector3 bombPosition = new Vector3(TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].x, transform.position.y, TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].z);
+           GameObject bombe = Instantiate(prefabBombe, bombPosition, Quaternion.identity) as GameObject;
            bombe.GetComponent<Bombes>().SetParent(gameObject);
            peutPoser = false;
        }
@@ -86,6 +88,15 @@ public class playerScript : MonoBehaviour {
     {
         peutPoser = newBool;   
     
+    }
+
+    public void TakeDamage(int theDamage)
+    {
+        life -= theDamage;
+        if (life <= 0)
+        {
+            //mort
+        }
     }
 
 }
