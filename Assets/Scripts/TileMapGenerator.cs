@@ -25,25 +25,26 @@ public class TileMapGenerator : MonoBehaviour {
     public int tileMapSize = 0;
 	public int CorridorLarger = 0;
     public List<Tile> listBossBomb;
+    public List<Tile> listOfDestructibleBlock;
 	Tile tile;
 
     public void Init()
     {
         listBossBomb = new List<Tile>();
+        listOfDestructibleBlock = new List<Tile>();
         indexTileMap = 0;
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
         DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 4);
         Generation();
+        DestructibleBlockGeneration();
+
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if(Input.GetKey(KeyCode.Space)){
-            Debug.Log(CoordToIndex(pl.transform.position.x, pl.transform.position.z));
-            Debug.Log(tileMap[CoordToIndex(1.0f, 1.0f)].type);
-		}
+
 	}
 
 
@@ -119,7 +120,7 @@ public class TileMapGenerator : MonoBehaviour {
 		}
 
 		/*************************/
-        BlockGeneration();
+       // BlockGeneration();
 
         
 
@@ -147,8 +148,6 @@ public class TileMapGenerator : MonoBehaviour {
                 t.transform.parent = parent.transform;
             }
         }
-
-		pl = Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity) as GameObject;
     }
 
     void CorridorGeneration()
@@ -195,9 +194,9 @@ public class TileMapGenerator : MonoBehaviour {
         
     }
 
-   	void BlockGeneration()
+   	void DestructibleBlockGeneration()
     {
-
+        GameObject parent = GameObject.Find("LD");
         // grand tour
         // bas
         for (int y = 2; y < 3; ++y)
@@ -208,6 +207,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (x % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -220,6 +224,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (x % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -232,6 +241,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (y % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() !=1 )
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -244,6 +258,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (y % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -259,6 +278,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (x % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -271,6 +295,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (x % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -283,6 +312,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (y % 2 != 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
@@ -295,6 +329,11 @@ public class TileMapGenerator : MonoBehaviour {
 				if (y % 2 == 0 && tileMap[indexTileMap].GetTypeAtCoord() != 1)
                 {
 					tileMap[indexTileMap].SetTile(x,y,2);
+                    TileType tileT = tileType[tileMap[indexTileMap].GetTypeAtCoord()];
+                    t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
+                    t.transform.parent = parent.transform;
+
+                    listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
                 }
             }
         }
