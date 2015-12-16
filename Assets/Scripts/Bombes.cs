@@ -8,23 +8,15 @@ public class Bombes : MonoBehaviour {
     int porte;
     float delayExplode;
     float timeToExplode;
-    int posX;
-    int posY;
     GameObject parent = null;
 
     void Start()
     {
         degats = 10;
         degatsBlocks = 1;
-        porte = 3;
+        porte = 5;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
-    }
-
-    void Pose(int X, int Y)
-    {
-        posX = X;
-        posY = Y;
     }
 
     public void SetParent(GameObject newParent)

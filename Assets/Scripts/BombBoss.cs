@@ -9,22 +9,14 @@ public class BombBoss : MonoBehaviour
     int porte;
     float delayExplode;
     float timeToExplode;
-    int posX;
-    int posY;
 
     void Start()
     {
         degats = 30;
 		degatsBlocks = 1;
-        porte = 10;
+        porte = 3;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
-    }
-
-    void Pose(int X, int Y)
-    {
-        posX = X;
-        posY = Y;
     }
 
     void Update()

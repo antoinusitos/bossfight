@@ -13,7 +13,6 @@ public class playerScript : MonoBehaviour {
 
     public GameObject prefabBombe;
     public CharacterController cc;
-    Vector3 tr;
     Vector3 moveDirection;
 
 	// Use this for initialization
@@ -71,7 +70,6 @@ public class playerScript : MonoBehaviour {
        {
            
        }*/
-       tr = this.gameObject.transform.position;
        if (Input.GetButtonDown("Attack_" + playerNumber) && peutPoser)
        {
            Vector3 bombPosition = new Vector3(TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].x, transform.position.y, TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].z);
