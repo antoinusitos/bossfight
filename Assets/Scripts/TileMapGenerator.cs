@@ -18,6 +18,7 @@ public class TileMapGenerator : MonoBehaviour {
     public GameObject player;
     private GameObject pl;
     public GameObject t ;
+	public GameObject prefabInterruptor;
 
 	private int indexTileMap = 0;
 	public Tile[] tileMap;
@@ -26,12 +27,18 @@ public class TileMapGenerator : MonoBehaviour {
 	public int CorridorLarger = 0;
     public List<Tile> listBossBomb;
     public List<Tile> listOfDestructibleBlock;
+	public List<Tile> listOfInterruptorBlock;
+	private List<GameObject> destructibleBlock;
+	private List<GameObject> interruptorBlock;
 	Tile tile;
 
     public void Init()
     {
         listBossBomb = new List<Tile>();
         listOfDestructibleBlock = new List<Tile>();
+		listOfInterruptorBlock = new List<Tile>();
+		destructibleBlock = new List<GameObject>();
+		interruptorBlock = new List<GameObject>();
         indexTileMap = 0;
         cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
         InitMapGeneration();
@@ -40,10 +47,16 @@ public class TileMapGenerator : MonoBehaviour {
         DestructibleBlockGeneration();
 
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			//Debug.Log(destructibleBlock.Count);
+			DoListOfInterruptorBlock(2);
+			InstanciateInterruptorBlock();
+		}
 
 	}
 
@@ -63,6 +76,102 @@ public class TileMapGenerator : MonoBehaviour {
             }
         }
     }
+
+	void DoListOfInterruptorBlock(int range)
+	{
+		#region DoList
+		for(int index=0; index<4; ++index)
+		{
+			if(index==0){
+				for (int x = 1; x <= 1 + range; ++x)
+				{
+					for (int y = 1; y <= 1 + range; ++y)
+					{
+						if (!(x== 1 && y == 1))
+						{
+							listOfInterruptorBlock.Add(tileMap[CoordToIndex(x, y)]);
+						}
+						
+					}
+				}
+			}
+			else if(index ==1)
+			{
+				for (int x = tileMapSize-2; x >= tileMapSize-2 - range; --x)
+				{
+					for (int y = 1; y <= 1 + range; ++y)
+					{
+						if (!(x == tileMapSize-2 && y == 1))
+						{
+							listOfInterruptorBlock.Add(tileMap[CoordToIndex(x, y)]);
+						}
+						
+					}
+				}
+			}
+			else if(index ==2)
+			{
+				for (int x = tileMapSize-2; x >= tileMapSize-2 - range; --x)
+				{
+					for (int y = tileMapSize-2; y >= tileMapSize-2 - range; --y)
+					{
+						if (!(x== tileMapSize-2 && y == tileMapSize-2 ))
+						{
+							listOfInterruptorBlock.Add(tileMap[CoordToIndex(x, y)]);
+						}
+						
+					}
+				}
+			}
+			else if(index ==3)
+			{
+				for (int x = 1; x <= 1 + range; ++x)
+				{
+					for (int y = tileMapSize-2; y >= tileMapSize-2 - range; --y)
+					{
+						if (!(x== 1 &&  y == tileMapSize-2))
+						{
+							listOfInterruptorBlock.Add(tileMap[CoordToIndex(x, y)]);
+						}
+						
+					}
+				}
+			}
+
+		}
+		#endregion
+
+	}
+
+	void InstanciateInterruptorBlock()
+	{
+		//spawn des 4 interrupteurs
+		Instantiate(prefabInterruptor, new Vector3(1,0,1), Quaternion.identity);
+		Instantiate(prefabInterruptor, new Vector3(tileMapSize-2,0,1), Quaternion.identity);
+		Instantiate(prefabInterruptor, new Vector3(1,0,tileMapSize-2), Quaternion.identity);
+		Instantiate(prefabInterruptor, new Vector3(tileMapSize-2,0,tileMapSize-2), Quaternion.identity);
+
+
+		RemoveAllDestructiblesBlocks();
+		GameObject parent = GameObject.Find("LD");
+		for(int i=0; i<listOfInterruptorBlock.Count; ++i){
+			TileType tileT = tileType[2];
+			t = (GameObject)Instantiate(tileT.tile, new Vector3(listOfInterruptorBlock[i].x, 0, listOfInterruptorBlock[i].z), Quaternion.identity);
+			t.transform.parent = parent.transform;
+			interruptorBlock.Add(t);
+		}
+
+	}
+
+	void RemoveAllDestructiblesBlocks(){
+		for(int i = 0; i<listOfDestructibleBlock.Count; ++i)
+		{
+			Destroy(destructibleBlock[i]);
+
+		}
+		listOfDestructibleBlock.Clear();
+		destructibleBlock.Clear();
+	}
 
     public Tile GetRandomBombPlace()
     {
@@ -206,6 +315,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -223,6 +333,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -240,6 +351,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -257,6 +369,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -277,6 +390,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -294,6 +408,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -311,6 +426,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
@@ -328,6 +444,7 @@ public class TileMapGenerator : MonoBehaviour {
                     t.transform.parent = parent.transform;
 
                     listOfDestructibleBlock.Add(tileMap[CoordToIndex(x, y)]);
+					destructibleBlock.Add(t);
                 }
             }
         }
