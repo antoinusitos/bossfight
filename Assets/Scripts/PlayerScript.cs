@@ -95,6 +95,10 @@ public class PlayerScript : MonoBehaviour {
             UIManager.instance.ActutaliseP1(life);
         else if (playerNumber == 2)
             UIManager.instance.ActutaliseP2(life);
+        else if (playerNumber == 3)
+            UIManager.instance.ActutaliseP3(life);
+        else if (playerNumber == 4)
+            UIManager.instance.ActutaliseP4(life);
         if (life <= 0)
         {
             Destroy(gameObject);

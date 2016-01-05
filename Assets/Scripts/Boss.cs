@@ -27,6 +27,7 @@ public class Boss : MonoBehaviour
     public int quart;
     public GameObject bomb;
     public int interruptor;
+    public int nbBomb;
 
     private AudioSource bossDamages;
     private AudioSource bossDeath;
@@ -44,6 +45,7 @@ public class Boss : MonoBehaviour
         delayAttack = 5.0f;
         hasPlatforming = false;
         timeToShield = 0f;
+        nbBomb = 20;
 
         delayShield = 0.5f;
         interruptor = 4;
@@ -171,7 +173,7 @@ public class Boss : MonoBehaviour
 
     void SpawnBomb()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < nbBomb; i++)
         {
             Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
             Instantiate(bomb, pos, Quaternion.identity);

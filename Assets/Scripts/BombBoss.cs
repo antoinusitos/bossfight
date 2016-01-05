@@ -10,13 +10,20 @@ public class BombBoss : MonoBehaviour
     float delayExplode;
     float timeToExplode;
 
+    private AudioSource bombe;
+
+    public GameObject fx;
+    public GameObject explosionFx;
+
     void Start()
     {
         degats = 20;
 		degatsBlocks = 1;
         porte = 5;
-        delayExplode = 2.0f;
+        delayExplode = Random.Range(0.5f,1.5f);
         timeToExplode = 0.0f;
+
+        bombe = SoundManager.instance.bombeExplosion.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -25,6 +32,8 @@ public class BombBoss : MonoBehaviour
         if (timeToExplode >= delayExplode)
         {
             sendDegat();
+            bombe.Play();
+            Instantiate(explosionFx, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -45,6 +54,13 @@ public class BombBoss : MonoBehaviour
             {
                 hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
             }
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, Vector3.Distance(transform.position, hit.point));
+        }
+        else
+        {
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
         {
@@ -57,6 +73,13 @@ public class BombBoss : MonoBehaviour
 			{
 				hit.transform.GetComponent<DestructibleBlock>().TakeDamage(degatsBlocks);
 			}
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, Vector3.Distance(transform.position, hit.point));
+        }
+        else
+        {
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
         {
@@ -74,6 +97,13 @@ public class BombBoss : MonoBehaviour
             //    print("boss take damage!");
             //    hit.transform.GetComponent<Boss>().TakeDamage(degats);
             //}
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.right, Vector3.Distance(transform.position, hit.point));
+        }
+        else
+        {
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.right, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
         {
@@ -91,6 +121,13 @@ public class BombBoss : MonoBehaviour
             //    print("boss take damage!");
             //    hit.transform.GetComponent<Boss>().TakeDamage(degats);
             //}
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.left, Vector3.Distance(transform.position, hit.point));
+        }
+        else
+        {
+            GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.GetComponent<Trainees>().SetDirection(Vector3.left, porte);
         }
     }
 }
