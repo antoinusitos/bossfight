@@ -8,16 +8,23 @@ public class Bombes : MonoBehaviour {
     int porte;
     float delayExplode;
     float timeToExplode;
+
     GameObject parent = null;
+
+    private AudioSource bombe;
 
     void Start()
     {
+
         degats = 30;
         degatsBlocks = 1;
         porte = 5;
         delayExplode = 1.0f;
         timeToExplode = 0.0f;
+
+        bombe = SoundManager.instance.bombeExplosion.GetComponent<AudioSource>();
     }
+
 
     public void SetParent(GameObject newParent)
     {
@@ -30,7 +37,10 @@ public class Bombes : MonoBehaviour {
         if (timeToExplode >= delayExplode)
         {
             sendDegat();
+
             parent.GetComponent<PlayerScript>().SetPeutPoser(true);
+            // play bombe explosion
+            bombe.Play();
             Destroy(gameObject);
         }
     }
@@ -43,6 +53,7 @@ public class Bombes : MonoBehaviour {
         if (Physics.Raycast(transform.position, Vector3.forward * porte, out hit, porte))
         {
             //print("There is something in front of the object!");
+
             if (hit.transform.GetComponent<PlayerScript>() != null)
             {
                 hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
@@ -67,8 +78,10 @@ public class Bombes : MonoBehaviour {
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
         {
             //print("There is something in back of the object!");
+
             if (hit.transform.GetComponent<PlayerScript>() != null)
             {
+
                 hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
             if (hit.transform.GetComponent<Boss>() != null)
@@ -91,8 +104,10 @@ public class Bombes : MonoBehaviour {
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
         {
             //print("There is something in right of the object!");
+
             if (hit.transform.GetComponent<PlayerScript>() != null)
             {
+
                 hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
             if (hit.transform.GetComponent<Boss>() != null)
@@ -115,8 +130,10 @@ public class Bombes : MonoBehaviour {
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
         {
             //print("There is something in left of the object!");
+
             if (hit.transform.GetComponent<PlayerScript>() != null)
             {
+
                 hit.transform.GetComponent<PlayerScript>().TakeDamage(degats);
             }
             if (hit.transform.GetComponent<Boss>() != null)
