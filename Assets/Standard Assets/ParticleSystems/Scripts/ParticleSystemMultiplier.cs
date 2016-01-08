@@ -21,6 +21,10 @@ namespace UnityStandardAssets.Effects
                 system.Clear();
                 system.Play();
             }
+
+
+            Destroy(gameObject, 3f);
         }
+
     }
 }
