@@ -41,7 +41,8 @@ public class Bombes : MonoBehaviour {
         {
             sendDegat();
 
-            parent.GetComponent<PlayerScript>().SetPeutPoser(true);
+            if (parent != null)
+                parent.GetComponent<PlayerScript>().SetPeutPoser(true);
             Instantiate(explosionFx, transform.position, Quaternion.identity);
             bombe.Play();
             Destroy(gameObject);
