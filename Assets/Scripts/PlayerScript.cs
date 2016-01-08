@@ -60,6 +60,7 @@ public class PlayerScript : MonoBehaviour {
             UIManager.instance.ActutaliseP4(life);
         if (life <= 0)
         {
+            PlayerManager.instance.PlayerDead(playerNumber);
             Destroy(gameObject);
         }
     }
