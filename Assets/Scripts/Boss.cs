@@ -84,10 +84,10 @@ public class Boss : MonoBehaviour
                 TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 3;
                 currentState = State.Platform;
-                PlayerManager.instance.Revive();
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern2;
                 hasPlatforming = false;
             }
@@ -99,10 +99,10 @@ public class Boss : MonoBehaviour
                 TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 2;
                 currentState = State.Platform;
-                PlayerManager.instance.Revive();
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
@@ -114,10 +114,10 @@ public class Boss : MonoBehaviour
                 TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 1;
                 currentState = State.Platform;
-                PlayerManager.instance.Revive();
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
