@@ -49,7 +49,7 @@ public class Boss : MonoBehaviour
         delayAttack = 5.0f;
         hasPlatforming = false;
         timeToShield = 0f;
-        nbBomb = 20;
+        nbBomb = 10;
 
         delayShield = 0.5f;
         interruptor = 4;
@@ -113,6 +113,7 @@ public class Boss : MonoBehaviour
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern2;
                 hasPlatforming = false;
             }
@@ -121,12 +122,13 @@ public class Boss : MonoBehaviour
         {
             if (quart == 3 && prevState == State.Pattern2)
             {
-                TileMapGenerator.instance.CleanLevelSpawnInterruptor();
+                //TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 2;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
@@ -141,6 +143,7 @@ public class Boss : MonoBehaviour
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
@@ -273,6 +276,7 @@ public class Boss : MonoBehaviour
         if (interruptor == 0)
         {
             CompletePlatforming();
+            TileMapGenerator.instance.DestructibleBlockGeneration();
             interruptor = 4;
         }
     }

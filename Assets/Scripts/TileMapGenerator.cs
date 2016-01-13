@@ -18,8 +18,9 @@ public class TileMapGenerator : MonoBehaviour
     public GameObject cam;
     public GameObject player;
     private GameObject pl;
-    public GameObject t;
-    public GameObject prefabInterruptor;
+    public GameObject t ;
+	public GameObject prefabInterruptor;
+    public Transform corridorPrefab;
 
     private int indexTileMap = 0;
     public Tile[] tileMap;
@@ -28,10 +29,13 @@ public class TileMapGenerator : MonoBehaviour
     public int CorridorLarger = 0;
     public List<Tile> listBossBomb;
     public List<Tile> listOfDestructibleBlock;
-    public List<Tile> listOfInterruptorBlock;
-    private List<GameObject> destructibleBlock;
-    private List<GameObject> interruptorBlock;
-    Tile tile;
+	public List<Tile> listOfInterruptorBlock;
+	private List<GameObject> destructibleBlock;
+	private List<GameObject> interruptorBlock;
+	Tile tile;
+
+
+    public Transform tutoPrefabInstance;
 
     public void Init()
     {
@@ -41,12 +45,12 @@ public class TileMapGenerator : MonoBehaviour
         destructibleBlock = new List<GameObject>();
         interruptorBlock = new List<GameObject>();
         indexTileMap = 0;
-        cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2);
+        cam.transform.position = new Vector3(tileMapSize / 2, tileMapSize, tileMapSize / 2-0.5f);
         InitMapGeneration();
         DoListOfBomb(GetMiddleTile().GetPosition().x, GetMiddleTile().GetPosition().z, 4);
         Generation();
         DestructibleBlockGeneration();
-
+        
     }
 
     // Update is called once per frame
@@ -154,11 +158,14 @@ public class TileMapGenerator : MonoBehaviour
     void InstanciateInterruptorBlock()
     {
         //spawn des 4 interrupteurs
-        Instantiate(prefabInterruptor, new Vector3(1, 0, 1), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, 1), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(1, 0, tileMapSize - 2), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, tileMapSize - 2), Quaternion.identity);
-
+        GameObject interruptor1 = Instantiate(prefabInterruptor, new Vector3(1, 0, 1), Quaternion.identity)as GameObject;
+        GameObject interruptor2 = Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, 1), Quaternion.identity)as GameObject;
+        GameObject interruptor3 = Instantiate(prefabInterruptor, new Vector3(1, 0, tileMapSize - 2), Quaternion.identity)as GameObject;
+        GameObject interruptor4 = Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, tileMapSize - 2), Quaternion.identity)as GameObject;
+        interruptorBlock.Add(interruptor1);
+        interruptorBlock.Add(interruptor2);
+        interruptorBlock.Add(interruptor3);
+        interruptorBlock.Add(interruptor4);
 
         RemoveAllDestructiblesBlocks();
         GameObject parent = GameObject.Find("LD");
@@ -172,6 +179,17 @@ public class TileMapGenerator : MonoBehaviour
 
     }
 
+    void RemoveAllInterruptorsBlocks()
+    {
+        for (int i = 0; i < interruptorBlock.Count; ++i)
+        {
+            Destroy(interruptorBlock[i]);
+
+        }
+        listOfInterruptorBlock.Clear();
+        interruptorBlock.Clear();
+    }
+
     void RemoveAllDestructiblesBlocks()
     {
         for (int i = 0; i < listOfDestructibleBlock.Count; ++i)
@@ -182,6 +200,7 @@ public class TileMapGenerator : MonoBehaviour
         listOfDestructibleBlock.Clear();
         destructibleBlock.Clear();
     }
+
 
     public Tile GetRandomBombPlace()
     {
@@ -228,15 +247,20 @@ public class TileMapGenerator : MonoBehaviour
                 }
             }
         }
-        //ouverture sur couloir
-        if (CorridorLarger > 2)
-        {
-            tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2 - 1)].type = 2;
-            tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2)].type = 2;
-            tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2 + 1)].type = 2;
 
-            CorridorGeneration();
-        }
+        tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2 - 1)].type = 0;
+        tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2)].type = 0;
+        tileMap[CoordToIndex(tileMapSize - 1, tileMapSize / 2 + 1)].type = 0;
+
+        tutoPrefabInstance = (Transform)Instantiate(corridorPrefab, new Vector3(tileMapSize + 27.0f, 0.0f, tileMapSize / 2 - 4.0f), Quaternion.identity);
+
+        //ouverture sur couloir
+        /*if (CorridorLarger > 2)
+        {
+            
+
+           // CorridorGeneration();
+        }*/
     }
 
     void Generation()
@@ -306,9 +330,13 @@ public class TileMapGenerator : MonoBehaviour
 
 
     }
-
-    void DestructibleBlockGeneration()
+    public void DestructibleBlockGeneration()
     {
+        if (listOfInterruptorBlock.Count> 0)
+        {
+            RemoveAllInterruptorsBlocks();
+        }
+        
         GameObject parent = GameObject.Find("LD");
         // grand tour
         // bas
