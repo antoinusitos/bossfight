@@ -54,6 +54,8 @@ public class bombeSuiveuse : MonoBehaviour {
         player4position = PlayerManager.instance.player4Instance.transform.position; */
 
         bombe = SoundManager.instance.bombeExplosion.GetComponent<AudioSource>();
+
+        calculDistance();
         
 	
 	}
@@ -230,9 +232,21 @@ public class bombeSuiveuse : MonoBehaviour {
     void FollowPlayer()
     {
 
-        transform.LookAt(nearestPlayer.transform.position);
+        //transform.LookAt(nearestPlayer.transform.position);
         transform.position = Vector3.MoveTowards(gameObject.transform.position, nearestPlayer.transform.position, speed * Time.deltaTime);
 
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag != "Ground" && collider.gameObject.name != "Bullet(Clone)")
+        {
+            sendDegat();
+            Instantiate(explosionFx, transform.position, Quaternion.identity);
+            bombe.Play();
+            Destroy(gameObject);
+        }
+        
     }
 
 

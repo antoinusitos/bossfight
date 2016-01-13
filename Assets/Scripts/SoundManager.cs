@@ -23,5 +23,8 @@ public class SoundManager : MonoBehaviour {
     public AudioSource bossDamages;
     public AudioSource bossDeath;
     public AudioSource crateExplosion;
+    public AudioSource ouverturePorte;
+
+    public AudioSource validationMenu;
 	
 }

@@ -3,14 +3,16 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+    public Vector3 direction;
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(MoveBullet(9.0f));
+        StartCoroutine(MoveBullet(20.0f));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position -= new Vector3(0, 0, 1)*Time.deltaTime;
+        //transform.position -= new Vector3(0, 0, 1)*Time.deltaTime;
+        transform.position += direction * Time.deltaTime;
 	}
 
     IEnumerator MoveBullet(float timer)
@@ -24,5 +26,20 @@ public class Bullet : MonoBehaviour {
         }
 
         Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if(collider.gameObject.name != "Bullet(Clone)")
+        {
+            Debug.Log(collider.gameObject.tag);
+            if (collider.gameObject.tag == "Destructible")
+            {
+                Debug.Log("destroy");
+                Destroy(collider.gameObject);
+            }
+            Destroy(this.gameObject);
+            
+        }
     }
 }

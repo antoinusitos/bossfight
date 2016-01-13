@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (MenuManager.instance.GetReady(1))
         {
-            playerInstance = (GameObject)Instantiate(player, new Vector3(TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f, 0f, TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f), Quaternion.identity);
+            playerInstance = (GameObject)Instantiate(player, new Vector3(/*TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f*/50.0f, 0f, 9.0f /*TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f*/), Quaternion.identity);
             UIManager.instance.ShowP1Life();
             nbPlayer++;
             players.Add(playerInstance);

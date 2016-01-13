@@ -4,6 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     public GameObject boss;
+    public GameObject door;
 
 	static GameManager mInst;
 	static public GameManager instance { get { return mInst; } }
@@ -19,21 +20,67 @@ public class GameManager : MonoBehaviour {
     public GameObject bossPrefab;
     public GameObject bossInstance;
 
+    AudioSource porte;
+
 	// Use this for initialization
 	void Start () 
     {
         TileMapGenerator.instance.Init();
         SpawnEntities();
+        //door.transform.position = new Vector3(door.transform.position.x, 0.0f, door.transform.position.z);
+        Debug.Log("start game manager");
+        door = TileMapGenerator.instance.tutoPrefabInstance.GetComponent<SpawnBomb>().Door;
+
+        porte = SoundManager.instance.ouverturePorte.GetComponent<AudioSource>();
     }
 
 	public void SpawnEntities()
 	{
         PlayerManager.instance.SpawnPlayers();
-        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition(), Quaternion.identity);
+        
     }
 
-    public void HitInterruptor()
+    public void SpawnBoss()
     {
-        bossInstance.GetComponent<Boss>().OneInterruptorHit();
+        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition(), Quaternion.identity);
     }
+    
+
+    public void HitInterruptor()
+    {   if(GameManager.instance.gameState == GameState.Tuto)
+        {
+            
+            //StartCoroutine(OpenDoor(0.5f));
+           
+            door.gameObject.GetComponent<Door>().move = true;
+            porte.Play();
+
+        }
+        else
+        {
+            bossInstance.GetComponent<Boss>().OneInterruptorHit();
+        }
+        
+    }
+
+   /* IEnumerator OpenDoor(float time)
+    {
+        
+        float currentTime = 0;
+        Vector3 doorPos = door.position;
+
+
+
+        while(currentTime < time)
+        {
+            Debug.Log(door.position);
+            doorPos.y -= 0.21f;
+            door.position = doorPos;
+            currentTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Debug.Log("fin opendoor");
+    }*/
+
+
 }
