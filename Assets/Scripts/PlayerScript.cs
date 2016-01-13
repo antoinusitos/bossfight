@@ -35,10 +35,13 @@ public class PlayerScript : MonoBehaviour {
 
        if (Input.GetButtonDown("Attack_" + playerNumber) && peutPoser)
        {
-           Vector3 bombPosition = new Vector3(TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].x, transform.position.y, TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].z);
-           GameObject bombe = Instantiate(prefabBombe, bombPosition, Quaternion.identity) as GameObject;
-           bombe.GetComponent<Bombes>().SetParent(gameObject);
-           peutPoser = false;
+            //Vector3 bombPosition = new Vector3(TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].x, transform.position.y, TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].z);
+            Vector3 bombPosition = new Vector3(transform.position.x > 0 ? (int)(transform.position.x+0.5f): (int)(transform.position.x - 0.5f), 0.0f, transform.position.z > 0 ? (int)(transform.position.z + 0.5f) : (int)(transform.position.z - 0.5f));
+            Debug.Log(bombPosition);
+            Debug.Log(transform.position);
+            GameObject bombe = Instantiate(prefabBombe, bombPosition, Quaternion.identity) as GameObject;
+            bombe.GetComponent<Bombes>().SetParent(gameObject);
+            peutPoser = false;
        }
 	}
 

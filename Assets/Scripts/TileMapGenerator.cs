@@ -154,11 +154,14 @@ public class TileMapGenerator : MonoBehaviour
     void InstanciateInterruptorBlock()
     {
         //spawn des 4 interrupteurs
-        Instantiate(prefabInterruptor, new Vector3(1, 0, 1), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, 1), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(1, 0, tileMapSize - 2), Quaternion.identity);
-        Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, tileMapSize - 2), Quaternion.identity);
-
+        GameObject interruptor1 = Instantiate(prefabInterruptor, new Vector3(1, 0, 1), Quaternion.identity)as GameObject;
+        GameObject interruptor2 = Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, 1), Quaternion.identity)as GameObject;
+        GameObject interruptor3 = Instantiate(prefabInterruptor, new Vector3(1, 0, tileMapSize - 2), Quaternion.identity)as GameObject;
+        GameObject interruptor4 = Instantiate(prefabInterruptor, new Vector3(tileMapSize - 2, 0, tileMapSize - 2), Quaternion.identity)as GameObject;
+        interruptorBlock.Add(interruptor1);
+        interruptorBlock.Add(interruptor2);
+        interruptorBlock.Add(interruptor3);
+        interruptorBlock.Add(interruptor4);
 
         RemoveAllDestructiblesBlocks();
         GameObject parent = GameObject.Find("LD");
@@ -170,6 +173,17 @@ public class TileMapGenerator : MonoBehaviour
             interruptorBlock.Add(t);
         }
 
+    }
+
+    void RemoveAllInterruptorsBlocks()
+    {
+        for (int i = 0; i < interruptorBlock.Count; ++i)
+        {
+            Destroy(interruptorBlock[i]);
+
+        }
+        listOfInterruptorBlock.Clear();
+        interruptorBlock.Clear();
     }
 
     void RemoveAllDestructiblesBlocks()
@@ -307,8 +321,13 @@ public class TileMapGenerator : MonoBehaviour
 
     }
 
-    void DestructibleBlockGeneration()
+    public void DestructibleBlockGeneration()
     {
+        if (listOfInterruptorBlock.Count> 0)
+        {
+            RemoveAllInterruptorsBlocks();
+        }
+
         GameObject parent = GameObject.Find("LD");
         // grand tour
         // bas

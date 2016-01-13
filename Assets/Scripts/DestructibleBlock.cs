@@ -27,9 +27,9 @@ public class DestructibleBlock : MonoBehaviour {
            
             Instantiate(explosionCrate, transform.position, Quaternion.identity);
 			GameObject parent = GameObject.Find("LD");
-			TileType tileT = TileMapGenerator.instance.tileType[0];
-			TileMapGenerator.instance.t = (GameObject) Instantiate(tileT.tile, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-			TileMapGenerator.instance.t.transform.parent = parent.transform;
+			//TileType tileT = TileMapGenerator.instance.tileType[0];
+			//TileMapGenerator.instance.t = (GameObject) Instantiate(tileT.tile, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+			//TileMapGenerator.instance.t.transform.parent = parent.transform;
             crateExplosionSound.PlayDelayed(0.3f);
 			Destroy (this.gameObject);
 		}

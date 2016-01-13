@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+    public Vector3 direction;
 	// Use this for initialization
 	void Start () {
         StartCoroutine(MoveBullet(9.0f));
@@ -10,7 +11,8 @@ public class Bullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position -= new Vector3(0, 0, 1)*Time.deltaTime;
+        //transform.position -= new Vector3(0, 0, 1)*Time.deltaTime;
+        transform.position += direction * Time.deltaTime;
 	}
 
     IEnumerator MoveBullet(float timer)

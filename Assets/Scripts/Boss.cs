@@ -96,7 +96,7 @@ public class Boss : MonoBehaviour
         {
             if (quart == 3 && prevState == State.Pattern2)
             {
-                TileMapGenerator.instance.CleanLevelSpawnInterruptor();
+                //TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 2;
                 currentState = State.Platform;
                 PlayerManager.instance.Revive();
@@ -250,6 +250,7 @@ public class Boss : MonoBehaviour
         if (interruptor == 0)
         {
             CompletePlatforming();
+            TileMapGenerator.instance.DestructibleBlockGeneration();
             interruptor = 4;
         }
     }
