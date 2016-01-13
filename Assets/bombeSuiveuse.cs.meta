@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 40f91de6368dd0f4f96ba46e5d3533cd
+timeCreated: 1452682925
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - fx: {instanceID: 0}
+  - explosionFx: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
