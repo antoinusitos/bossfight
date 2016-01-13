@@ -53,6 +53,8 @@ public class MenuManager : MonoBehaviour {
         player2Fond.GetComponent<Image>().color = PDefault.color;
         player3Fond.GetComponent<Image>().color = PDefault.color;
         player4Fond.GetComponent<Image>().color = PDefault.color;
+
+        SoundManager.instance.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public bool GetReady(int p)
@@ -75,6 +77,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (!player1Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player1Ready = !player1Ready;
                     player1UI.GetComponent<Image>().sprite = ready;
                     player1Button.GetComponent<Image>().material = B;
@@ -85,6 +88,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player1Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player1Ready = !player1Ready;
                     player1UI.GetComponent<Image>().sprite = notReady;
                     player1Button.GetComponent<Image>().material = A;
@@ -96,6 +100,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (!player2Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player2Ready = !player2Ready;
                     player2UI.GetComponent<Image>().sprite = ready;
                     player2Button.GetComponent<Image>().material = B;
@@ -106,6 +111,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player2Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player2Ready = !player2Ready;
                     player2UI.GetComponent<Image>().sprite = notReady;
                     player2Button.GetComponent<Image>().material = A;
@@ -117,6 +123,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (!player3Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player3Ready = !player3Ready;
                     player3UI.GetComponent<Image>().sprite = ready;
                     player3Button.GetComponent<Image>().material = B;
@@ -127,6 +134,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player3Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player3Ready = !player3Ready;
                     player3UI.GetComponent<Image>().sprite = notReady;
                     player3Button.GetComponent<Image>().material = A;
@@ -138,6 +146,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (!player4Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player4Ready = !player4Ready;
                     player4UI.GetComponent<Image>().sprite = ready;
                     player4Button.GetComponent<Image>().material = B;
@@ -148,6 +157,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player4Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     player4Ready = !player4Ready;
                     player4UI.GetComponent<Image>().sprite = notReady;
                     player4Button.GetComponent<Image>().material = A;
@@ -159,6 +169,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player1Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     Selection = false;
                     Application.LoadLevel(1);
                 }
@@ -168,6 +179,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player2Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     Selection = false;
                     Application.LoadLevel(1);
                 }
@@ -177,6 +189,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player3Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     Selection = false;
                     Application.LoadLevel(1);
                 }
@@ -186,6 +199,7 @@ public class MenuManager : MonoBehaviour {
             {
                 if (player4Ready)
                 {
+                    SoundManager.instance.validationMenu.Play();
                     Selection = false;
                     Application.LoadLevel(1);
                 }
