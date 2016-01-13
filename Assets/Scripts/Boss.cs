@@ -31,12 +31,17 @@ public class Boss : MonoBehaviour
     private AudioSource bossDamages;
     private AudioSource bossDeath;
 
+    public float respiration = 0;
+    public float respirationMax;
+    public float respirationSpeed;
+    public bool inspire = true;
+
     void Start()
     {
         quart = 4;
         lifeMax = 1000;
         life = lifeMax;
-       shieldMax = 150;
+        shieldMax = 150;
         shield = shieldMax;
         currentState = State.Pattern1;
         prevState = currentState;
@@ -49,6 +54,8 @@ public class Boss : MonoBehaviour
         delayShield = 0.5f;
         interruptor = 4;
 
+        respirationMax = .03f;
+        respirationSpeed = 0.5f;
         bossDamages = SoundManager.instance.bossDamages.GetComponent<AudioSource>();
         bossDeath = SoundManager.instance.bossDeath.GetComponent<AudioSource>();
     }
@@ -64,6 +71,25 @@ public class Boss : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(10);
+        }
+
+        if(inspire)
+        {
+            respiration += 0.1f * Time.deltaTime * respirationSpeed;
+            transform.GetChild(0).transform.localScale += new Vector3(0.1f, 0.1f, 0.1f) * Time.deltaTime * respirationSpeed;
+            if(respiration >= respirationMax)
+            {
+                inspire = false;
+            }
+        }
+        else
+        {
+            respiration -= 0.1f * Time.deltaTime * respirationSpeed;
+            transform.GetChild(0).transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f) * Time.deltaTime * respirationSpeed;
+            if (respiration <= -respirationMax)
+            {
+                inspire = true;
+            }
         }
     }
 
