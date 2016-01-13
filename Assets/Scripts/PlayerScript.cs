@@ -15,10 +15,24 @@ public class PlayerScript : MonoBehaviour {
     public CharacterController cc;
     Vector3 moveDirection;
 
-	// Use this for initialization
-	void Start () {
+    public enum state
+    {
+        dos,
+        face,
+        droite,
+        gauche,
+        idle
+    }
+
+    public state currentState;
+
+    public bool move;
+
+    // Use this for initialization
+    void Start () {
         cc = GetComponent<CharacterController>();
-	}
+        currentState = state.face;
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -54,23 +68,70 @@ public class PlayerScript : MonoBehaviour {
         }
         moveDirection.y -= gravity * Time.deltaTime;
         cc.Move(moveDirection * Time.deltaTime);
-         //  }
-     
 
-         //move down
-      // if (Input.GetAxis("L_YAxis_" + playerNumber) < -deadZone)
-          //  {
-              //  Debug.Log("down");
-                /*Vector3 forward = transform.TransformDirection(Vector3.forward);
-                float curSpeed = speed * Input.GetAxis("Vertical");
-                cc.SimpleMove(-forward * curSpeed);*/
-          //  }
+        move = false;
 
-       /*if (Input.GetButton("Attack_" + playerNumber))
-       {
-           
-       }*/
-       if (Input.GetButtonDown("Attack_" + playerNumber) && peutPoser)
+        if (Input.GetAxis("L_XAxis_" + playerNumber) < -deadZone)
+        {
+            move = true;
+            if (currentState != state.gauche)
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetTrigger("gauche");
+                currentState = state.gauche;
+            }
+        }
+        else if (Input.GetAxis("L_XAxis_" + playerNumber) > deadZone)
+        {
+            move = true;
+            if (currentState != state.droite)
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetTrigger("droite");
+                currentState = state.droite;
+            }
+        }
+
+        if (Input.GetAxis("L_YAxis_" + playerNumber) < -deadZone)
+        {
+            move = true;
+            if (currentState != state.dos)
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetTrigger("dos");
+                currentState = state.dos;
+            }
+        }
+        else if (Input.GetAxis("L_YAxis_" + playerNumber) > deadZone)
+        {
+            move = true;
+            if (currentState != state.face)
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetTrigger("face");
+                currentState = state.face;
+            }
+        }
+
+        if( move == false && currentState != state.idle)
+        {
+            transform.GetChild(0).GetComponent<Animator>().SetTrigger("idle");
+            currentState = state.idle;
+        }
+
+        //  }
+
+
+        //move down
+        // if (Input.GetAxis("L_YAxis_" + playerNumber) < -deadZone)
+        //  {
+        //  Debug.Log("down");
+        /*Vector3 forward = transform.TransformDirection(Vector3.forward);
+        float curSpeed = speed * Input.GetAxis("Vertical");
+        cc.SimpleMove(-forward * curSpeed);*/
+        //  }
+
+        /*if (Input.GetButton("Attack_" + playerNumber))
+        {
+
+        }*/
+        if (Input.GetButtonDown("Attack_" + playerNumber) && peutPoser)
        {
            Vector3 bombPosition = new Vector3(TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].x, transform.position.y, TileMapGenerator.instance.tileMap[TileMapGenerator.instance.CoordToIndex(transform.position.x, transform.position.z)].z);
            GameObject bombe = Instantiate(prefabBombe, bombPosition, Quaternion.identity) as GameObject;

@@ -28,6 +28,11 @@ public class Boss : MonoBehaviour
     public GameObject bomb;
     public int interruptor;
 
+    public float respiration = 0;
+    public float respirationMax;
+    public float respirationSpeed;
+    public bool inspire = true;
+
     void Start()
     {
         quart = 4;
@@ -43,6 +48,9 @@ public class Boss : MonoBehaviour
         timeToShield = 0f;
         delayShield = 0.5f;
         interruptor = 4;
+
+        respirationMax = .03f;
+        respirationSpeed = 0.5f;
     }
 
     void Update()
@@ -56,6 +64,25 @@ public class Boss : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(10);
+        }
+
+        if(inspire)
+        {
+            respiration += 0.1f * Time.deltaTime * respirationSpeed;
+            transform.GetChild(0).transform.localScale += new Vector3(0.1f, 0.1f, 0.1f) * Time.deltaTime * respirationSpeed;
+            if(respiration >= respirationMax)
+            {
+                inspire = false;
+            }
+        }
+        else
+        {
+            respiration -= 0.1f * Time.deltaTime * respirationSpeed;
+            transform.GetChild(0).transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f) * Time.deltaTime * respirationSpeed;
+            if (respiration <= -respirationMax)
+            {
+                inspire = true;
+            }
         }
     }
 
