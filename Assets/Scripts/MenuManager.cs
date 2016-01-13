@@ -36,6 +36,8 @@ public class MenuManager : MonoBehaviour {
     bool player3Ready = false;
     bool player4Ready = false;
 
+    bool Selection = true;
+
     static MenuManager mInst;
     static public MenuManager instance { get { return mInst; } }
 
@@ -67,119 +69,126 @@ public class MenuManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump_1"))
+        if (Selection)
         {
-            if (!player1Ready)
+            if (Input.GetButtonDown("Jump_1"))
             {
-                player1Ready = !player1Ready;
-                player1UI.GetComponent<Image>().sprite = ready;
-                player1Button.GetComponent<Image>().material = B;
-                player1Fond.GetComponent<Image>().color = P1Mat.color;
+                if (!player1Ready)
+                {
+                    player1Ready = !player1Ready;
+                    player1UI.GetComponent<Image>().sprite = ready;
+                    player1Button.GetComponent<Image>().material = B;
+                    player1Fond.GetComponent<Image>().color = P1Mat.color;
+                }
             }
-        }
-        if (Input.GetButtonDown("Cancel_1"))
-        {
-            if (player1Ready)
+            if (Input.GetButtonDown("Cancel_1"))
             {
-                player1Ready = !player1Ready;
-                player1UI.GetComponent<Image>().sprite = notReady;
-                player1Button.GetComponent<Image>().material = A;
-                player1Fond.GetComponent<Image>().color = PDefault.color;
+                if (player1Ready)
+                {
+                    player1Ready = !player1Ready;
+                    player1UI.GetComponent<Image>().sprite = notReady;
+                    player1Button.GetComponent<Image>().material = A;
+                    player1Fond.GetComponent<Image>().color = PDefault.color;
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Jump_2"))
-        {
-            if (!player2Ready)
+            if (Input.GetButtonDown("Jump_2"))
             {
-                player2Ready = !player2Ready;
-                player2UI.GetComponent<Image>().sprite = ready;
-                player2Button.GetComponent<Image>().material = B;
-                player2Fond.GetComponent<Image>().color = P2Mat.color;
+                if (!player2Ready)
+                {
+                    player2Ready = !player2Ready;
+                    player2UI.GetComponent<Image>().sprite = ready;
+                    player2Button.GetComponent<Image>().material = B;
+                    player2Fond.GetComponent<Image>().color = P2Mat.color;
+                }
             }
-        }
-        if (Input.GetButtonDown("Cancel_2"))
-        {
-            if (player2Ready)
+            if (Input.GetButtonDown("Cancel_2"))
             {
-                player2Ready = !player2Ready;
-                player2UI.GetComponent<Image>().sprite = notReady;
-                player2Button.GetComponent<Image>().material = A;
-                player2Fond.GetComponent<Image>().color = PDefault.color;
+                if (player2Ready)
+                {
+                    player2Ready = !player2Ready;
+                    player2UI.GetComponent<Image>().sprite = notReady;
+                    player2Button.GetComponent<Image>().material = A;
+                    player2Fond.GetComponent<Image>().color = PDefault.color;
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Jump_3"))
-        {
-            if (!player3Ready)
+            if (Input.GetButtonDown("Jump_3"))
             {
-                player3Ready = !player3Ready;
-                player3UI.GetComponent<Image>().sprite = ready;
-                player3Button.GetComponent<Image>().material = B;
-                player3Fond.GetComponent<Image>().color = P3Mat.color;
+                if (!player3Ready)
+                {
+                    player3Ready = !player3Ready;
+                    player3UI.GetComponent<Image>().sprite = ready;
+                    player3Button.GetComponent<Image>().material = B;
+                    player3Fond.GetComponent<Image>().color = P3Mat.color;
+                }
             }
-        }
-        if (Input.GetButtonDown("Cancel_3"))
-        {
-            if (player3Ready)
+            if (Input.GetButtonDown("Cancel_3"))
             {
-                player3Ready = !player3Ready;
-                player3UI.GetComponent<Image>().sprite = notReady;
-                player3Button.GetComponent<Image>().material = A;
-                player3Fond.GetComponent<Image>().color = PDefault.color;
+                if (player3Ready)
+                {
+                    player3Ready = !player3Ready;
+                    player3UI.GetComponent<Image>().sprite = notReady;
+                    player3Button.GetComponent<Image>().material = A;
+                    player3Fond.GetComponent<Image>().color = PDefault.color;
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Jump_4"))
-        {
-            if (!player4Ready)
+            if (Input.GetButtonDown("Jump_4"))
             {
-                player4Ready = !player4Ready;
-                player4UI.GetComponent<Image>().sprite = ready;
-                player4Button.GetComponent<Image>().material = B;
-                player4Fond.GetComponent<Image>().color = P4Mat.color;
+                if (!player4Ready)
+                {
+                    player4Ready = !player4Ready;
+                    player4UI.GetComponent<Image>().sprite = ready;
+                    player4Button.GetComponent<Image>().material = B;
+                    player4Fond.GetComponent<Image>().color = P4Mat.color;
+                }
             }
-        }
-        if (Input.GetButtonDown("Cancel_4"))
-        {
-            if (player4Ready)
+            if (Input.GetButtonDown("Cancel_4"))
             {
-                player4Ready = !player4Ready;
-                player4UI.GetComponent<Image>().sprite = notReady;
-                player4Button.GetComponent<Image>().material = A;
-                player4Fond.GetComponent<Image>().color = PDefault.color;
+                if (player4Ready)
+                {
+                    player4Ready = !player4Ready;
+                    player4UI.GetComponent<Image>().sprite = notReady;
+                    player4Button.GetComponent<Image>().material = A;
+                    player4Fond.GetComponent<Image>().color = PDefault.color;
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Start_1"))
-        {
-            if(player1Ready)
+            if (Input.GetButtonDown("Start_1"))
             {
-                Application.LoadLevel(1);
+                if (player1Ready)
+                {
+                    Selection = false;
+                    Application.LoadLevel(1);
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Start_2"))
-        {
-            if (player2Ready)
+            if (Input.GetButtonDown("Start_2"))
             {
-                Application.LoadLevel(1);
+                if (player2Ready)
+                {
+                    Selection = false;
+                    Application.LoadLevel(1);
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Start_3"))
-        {
-            if (player3Ready)
+            if (Input.GetButtonDown("Start_3"))
             {
-                Application.LoadLevel(1);
+                if (player3Ready)
+                {
+                    Selection = false;
+                    Application.LoadLevel(1);
+                }
             }
-        }
 
-        if (Input.GetButtonDown("Start_4"))
-        {
-            if (player4Ready)
+            if (Input.GetButtonDown("Start_4"))
             {
-                Application.LoadLevel(1);
+                if (player4Ready)
+                {
+                    Selection = false;
+                    Application.LoadLevel(1);
+                }
             }
         }
     }
