@@ -3,9 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public GameObject player;
-	public GameObject player2;
     public GameObject boss;
+    public Transform door;
 
 	static GameManager mInst;
 	static public GameManager instance { get { return mInst; } }
@@ -30,15 +29,35 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnEntities()
 	{
-        if(MenuManager.instance.GetReady(1))
-		    Instantiate (player, new Vector3 (TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f, 0f, TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f), Quaternion.identity);
-        if (MenuManager.instance.GetReady(2))
-            Instantiate (player2, new Vector3 (TileMapGenerator.instance.tileMapSize / 3.0f + 0.5f, 0f, TileMapGenerator.instance.tileMapSize / 3.0f + 1.5f), Quaternion.identity);
-        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition() /*+ new Vector3(1f, 0, 1f)*/, Quaternion.identity);
+        PlayerManager.instance.SpawnPlayers();
+        bossInstance = (GameObject)Instantiate(bossPrefab, TileMapGenerator.instance.GetMiddleTile().GetPosition(), Quaternion.identity);
     }
 
     public void HitInterruptor()
-    {
-        bossInstance.GetComponent<Boss>().OneInterruptorHit();
+    {   if(GameManager.instance.gameState == GameState.Tuto)
+        {
+            StartCoroutine(OpenDoor(0.5f));
+        }
+        else
+        {
+            bossInstance.GetComponent<Boss>().OneInterruptorHit();
+        }
+        
     }
+
+    IEnumerator OpenDoor(float time)
+    {
+        float currentTime = 0;
+        Vector3 doorPos = door.position;
+
+        while(currentTime < time)
+        {
+            doorPos.y -= 0.21f;
+            door.position = doorPos;
+            currentTime += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+
 }

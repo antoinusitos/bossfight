@@ -26,14 +26,17 @@ public class Boss : MonoBehaviour
     public bool hasPlatforming;
     public int quart;
     public GameObject bomb;
+    public int nbBomb;
     public int interruptor;
+    private AudioSource bossDamages;
+    private AudioSource bossDeath;
 
     void Start()
     {
         quart = 4;
         lifeMax = 1000;
         life = lifeMax;
-        shieldMax = 150;
+       shieldMax = 150;
         shield = shieldMax;
         currentState = State.Pattern1;
         prevState = currentState;
@@ -41,8 +44,13 @@ public class Boss : MonoBehaviour
         delayAttack = 5.0f;
         hasPlatforming = false;
         timeToShield = 0f;
+        nbBomb = 20;
+
         delayShield = 0.5f;
         interruptor = 4;
+
+        bossDamages = SoundManager.instance.bossDamages.GetComponent<AudioSource>();
+        bossDeath = SoundManager.instance.bossDeath.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -73,11 +81,13 @@ public class Boss : MonoBehaviour
         {
             if (quart == 4 && prevState == State.Pattern2)
             {
+                TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 3;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern2;
                 hasPlatforming = false;
             }
@@ -86,11 +96,13 @@ public class Boss : MonoBehaviour
         {
             if (quart == 3 && prevState == State.Pattern2)
             {
+                //TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 2;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
@@ -99,11 +111,13 @@ public class Boss : MonoBehaviour
         {
             if (quart == 2 && prevState == State.Pattern3)
             {
+                TileMapGenerator.instance.CleanLevelSpawnInterruptor();
                 quart = 1;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
             {
+                PlayerManager.instance.Revive();
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
@@ -164,7 +178,7 @@ public class Boss : MonoBehaviour
 
     void SpawnBomb()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < nbBomb; i++)
         {
             Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
             Instantiate(bomb, pos, Quaternion.identity);
@@ -198,15 +212,7 @@ public class Boss : MonoBehaviour
         ChooseState();
     }
 
-    public void OneInterruptorHit()
-    {
-        interruptor--;
-        if(interruptor == 0)
-        {
-            CompletePlatforming();
-            interruptor = 4;
-        }
-    }
+    
 
     public void TakeDamage(int theDamage)
     {
@@ -214,6 +220,9 @@ public class Boss : MonoBehaviour
         {
             if (shield > 0)
             {
+                // son dégats boss
+                bossDamages.Play();
+
                 shield -= theDamage;
                 UIManager.instance.ActutaliseBossShield(shield);
                 if (shield < 0)
@@ -226,9 +235,23 @@ public class Boss : MonoBehaviour
             }
             if (life <= 0)
             {
+                //son mort boss
+                bossDeath.Play();
+
                 currentState = State.Dead;
             }
             ChooseState();
+        }
+    }
+
+    public void OneInterruptorHit()
+    {
+        interruptor--;
+        if (interruptor == 0)
+        {
+            CompletePlatforming();
+            TileMapGenerator.instance.DestructibleBlockGeneration();
+            interruptor = 4;
         }
     }
 }
