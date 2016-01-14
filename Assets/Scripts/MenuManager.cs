@@ -171,7 +171,7 @@ public class MenuManager : MonoBehaviour {
                 {
                     SoundManager.instance.validationMenu.Play();
                     Selection = false;
-                    Application.LoadLevel(1);
+                    Application.LoadLevel("Game");
                 }
             }
 
@@ -181,7 +181,7 @@ public class MenuManager : MonoBehaviour {
                 {
                     SoundManager.instance.validationMenu.Play();
                     Selection = false;
-                    Application.LoadLevel(1);
+                    Application.LoadLevel("Game");
                 }
             }
 
@@ -191,7 +191,7 @@ public class MenuManager : MonoBehaviour {
                 {
                     SoundManager.instance.validationMenu.Play();
                     Selection = false;
-                    Application.LoadLevel(1);
+                    Application.LoadLevel("Game");
                 }
             }
 
@@ -201,7 +201,7 @@ public class MenuManager : MonoBehaviour {
                 {
                     SoundManager.instance.validationMenu.Play();
                     Selection = false;
-                    Application.LoadLevel(1);
+                    Application.LoadLevel("Game");
                 }
             }
         }

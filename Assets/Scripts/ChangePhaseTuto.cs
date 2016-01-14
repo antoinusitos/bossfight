@@ -12,7 +12,7 @@ public class ChangePhaseTuto : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.gameObject.name == "TriggerPhase2")
+        if(collider.gameObject.name == "TriggerPhase2" && Tuto.instance.phaseTuto != Tuto.PhaseTuto.PhaseTuto3)
         {
             Tuto.instance.phaseTuto = Tuto.PhaseTuto.PhaseTuto2;
             CheckPoint = collider.transform.position;
@@ -31,6 +31,7 @@ public class ChangePhaseTuto : MonoBehaviour {
             }
             GameManager.instance.gameState = GameManager.GameState.Game;
             Tuto.instance.phaseTuto = Tuto.PhaseTuto.PhaseTuto3;
+            TileMapGenerator.instance.tutoPrefabInstance.GetComponent<SpawnBomb>().Block();
         }
     }
 }

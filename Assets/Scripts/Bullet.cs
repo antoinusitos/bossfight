@@ -4,9 +4,11 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
     public Vector3 direction;
+    int damage;
 	// Use this for initialization
 	void Start () {
         StartCoroutine(MoveBullet(20.0f));
+        damage = 20;
 	}
 	
 	// Update is called once per frame
@@ -32,11 +34,14 @@ public class Bullet : MonoBehaviour {
     {
         if(collider.gameObject.name != "Bullet(Clone)")
         {
-            Debug.Log(collider.gameObject.tag);
+          //  Debug.Log(collider.gameObject.tag);
             if (collider.gameObject.tag == "Destructible")
             {
-                Debug.Log("destroy");
+              //  Debug.Log("destroy");
                 Destroy(collider.gameObject);
+            }else if(collider.gameObject.tag == "Player")
+            {
+                collider.gameObject.GetComponent<PlayerScript>().TakeDamage(damage);
             }
             Destroy(this.gameObject);
             

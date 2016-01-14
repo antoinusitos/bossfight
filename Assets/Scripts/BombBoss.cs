@@ -17,7 +17,7 @@ public class BombBoss : MonoBehaviour
 
     void Start()
     {
-        degats = 20;
+        degats = 15;
 		degatsBlocks = 1;
         porte = 5;
         delayExplode = Random.Range(0.5f,1.5f);

@@ -18,4 +18,17 @@ public class SpawnBomb : MonoBehaviour {
     public GameObject canon;
 
     public GameObject Door;
+
+    public GameObject RespawnZone;
+
+    public GameObject block1;
+    public GameObject block2;
+    public GameObject block3;
+
+    public void Block()
+    {
+        block1.SetActive(true);
+        block2.SetActive(true);
+        block3.SetActive(true);
+    }
 }

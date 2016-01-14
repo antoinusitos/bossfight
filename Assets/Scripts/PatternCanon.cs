@@ -21,13 +21,16 @@ public class PatternCanon : MonoBehaviour {
 
 	IEnumerator CannonShoot(float time)
 	{
-		while(GameManager.instance.gameState == GameManager.GameState.Tuto)
-		{
-			StartCoroutine(Shoot(shootType));
-			yield return new WaitForSeconds(time);
-		}
+        float currentTime = 0;
 
-	}
+		while(currentTime < time)
+        {
+            StartCoroutine(Shoot(shootType));
+            currentTime += Time.deltaTime;
+            yield return new WaitForSeconds(time);
+        }
+
+    }
 
 
 	IEnumerator Shoot(ShootType type)

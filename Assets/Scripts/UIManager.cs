@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour {
     public GameObject P4Slider;
     public GameObject BossSlider;
     public GameObject BossSield;
+    public GameObject Decompte;
 
     static UIManager mInst;
     static public UIManager instance { get { return mInst; } }
@@ -22,6 +23,11 @@ public class UIManager : MonoBehaviour {
         P2Slider.SetActive(false);
         P3Slider.SetActive(false);
         P4Slider.SetActive(false);
+    }
+
+    public void UpdateCompteur(int l)
+    {
+        Decompte.GetComponent<Text>().text = l.ToString();
     }
 
     public void ActutaliseP1(int life)

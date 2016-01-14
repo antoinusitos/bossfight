@@ -17,14 +17,11 @@ public class Door : MonoBehaviour {
 
         if (move)
         {
-            Debug.Log("move");
-            Debug.Log(transform.position);
             transform.position -= new Vector3(0.0f, Time.deltaTime, 0.0f);
             currentTime += Time.deltaTime;
 
             if (currentTime >= 4.0f)
             {
-                Debug.Log("fin opendoor");
                 move = false;
             }
         }

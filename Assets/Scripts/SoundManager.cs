@@ -26,5 +26,6 @@ public class SoundManager : MonoBehaviour {
     public AudioSource ouverturePorte;
 
     public AudioSource validationMenu;
-	
+    public AudioSource Death;
+
 }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public GameObject door;
 
 	static GameManager mInst;
+    public GameObject panelEndGame;
 	static public GameManager instance { get { return mInst; } }
 	void Awake()
 	{
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(this);
 	}
 
-	public enum GameState {Tuto, Game}
+	public enum GameState {Tuto, Game, End, Menu}
 
 	public GameState gameState;
     public GameObject bossPrefab;
@@ -22,16 +23,58 @@ public class GameManager : MonoBehaviour {
 
     AudioSource porte;
 
+    float currentTime;
+    float maxTime;
+
 	// Use this for initialization
 	void Start () 
     {
+        maxTime = 11.0f;
+        currentTime = maxTime;
         TileMapGenerator.instance.Init();
         SpawnEntities();
         //door.transform.position = new Vector3(door.transform.position.x, 0.0f, door.transform.position.z);
-        Debug.Log("start game manager");
+        //Debug.Log("start game manager");
         door = TileMapGenerator.instance.tutoPrefabInstance.GetComponent<SpawnBomb>().Door;
 
         porte = SoundManager.instance.ouverturePorte.GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        if(gameState == GameState.End)
+        {
+            if(Input.GetButtonDown("Start_1"))
+            {
+                Application.LoadLevel("Game");
+            }
+            else if (Input.GetButtonDown("Start_2"))
+            {
+                Application.LoadLevel("Game");
+            }
+            else if (Input.GetButtonDown("Start_3"))
+            {
+                Application.LoadLevel("Game");
+            }
+            else if (Input.GetButtonDown("Start_4"))
+            {
+                Application.LoadLevel("Game");
+            }
+            else
+            {
+                if(currentTime >= 0.0f)
+                {
+                    currentTime -= Time.deltaTime;
+                    UIManager.instance.UpdateCompteur((int)currentTime);
+                }
+                else
+                {
+                    currentTime = maxTime;
+                    gameState = GameState.Menu;
+                    Application.LoadLevel("MainMenu");
+                }
+            }
+        }
     }
 
 	public void SpawnEntities()
@@ -63,24 +106,18 @@ public class GameManager : MonoBehaviour {
         
     }
 
-   /* IEnumerator OpenDoor(float time)
+    public void ActiveEndGameVictory()
     {
-        
-        float currentTime = 0;
-        Vector3 doorPos = door.position;
+        panelEndGame.SetActive(true);
+        panelEndGame.transform.GetChild(0).gameObject.SetActive(true);
+    }
 
-
-
-        while(currentTime < time)
-        {
-            Debug.Log(door.position);
-            doorPos.y -= 0.21f;
-            door.position = doorPos;
-            currentTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-        }
-        Debug.Log("fin opendoor");
-    }*/
+    public void ActiveEndGameDefeat()
+    {
+        panelEndGame.SetActive(true);
+        panelEndGame.transform.GetChild(1).gameObject.SetActive(true);
+    }
+    
 
 
 }

@@ -12,8 +12,9 @@ public class Interruptor : MonoBehaviour {
         {
             canBeDestoyed = false;
             GetComponent<Renderer>().material = hit;
-
+            transform.GetChild(0).transform.GetComponent<giro>().Green();
             GameManager.instance.HitInterruptor();
+
         }
     }
 
