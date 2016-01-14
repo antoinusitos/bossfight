@@ -12,7 +12,7 @@ public class ChangePhaseTuto : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.gameObject.name == "TriggerPhase2")
+        if(collider.gameObject.name == "TriggerPhase2" && Tuto.instance.phaseTuto != Tuto.PhaseTuto.PhaseTuto3)
         {
             Tuto.instance.phaseTuto = Tuto.PhaseTuto.PhaseTuto2;
             CheckPoint = collider.transform.position;

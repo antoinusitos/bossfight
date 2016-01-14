@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
         TileMapGenerator.instance.Init();
         SpawnEntities();
         //door.transform.position = new Vector3(door.transform.position.x, 0.0f, door.transform.position.z);
-        Debug.Log("start game manager");
+        //Debug.Log("start game manager");
         door = TileMapGenerator.instance.tutoPrefabInstance.GetComponent<SpawnBomb>().Door;
 
         porte = SoundManager.instance.ouverturePorte.GetComponent<AudioSource>();
@@ -62,25 +62,7 @@ public class GameManager : MonoBehaviour {
         }
         
     }
-
-   /* IEnumerator OpenDoor(float time)
-    {
-        
-        float currentTime = 0;
-        Vector3 doorPos = door.position;
-
-
-
-        while(currentTime < time)
-        {
-            Debug.Log(door.position);
-            doorPos.y -= 0.21f;
-            door.position = doorPos;
-            currentTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-        }
-        Debug.Log("fin opendoor");
-    }*/
+    
 
 
 }

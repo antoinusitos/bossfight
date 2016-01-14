@@ -24,12 +24,16 @@ public class Boss : MonoBehaviour
     public float timeToShield;
     public float delayShield;
     public bool hasPlatforming;
-    public int quart;
+    public int tier;
     public GameObject bomb;
+    public GameObject bombSuiveuse;
+    public GameObject canon;
     public int nbBomb;
+    public int nbBombSuiveuse;
     public int interruptor;
     private AudioSource bossDamages;
     private AudioSource bossDeath;
+    private bool spawnCanon = false;
 
     public float respiration = 0;
     public float respirationMax;
@@ -38,7 +42,7 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
-        quart = 4;
+        tier = 3;
         lifeMax = 1000;
         life = lifeMax;
         shieldMax = 150;
@@ -50,6 +54,8 @@ public class Boss : MonoBehaviour
         hasPlatforming = false;
         timeToShield = 0f;
         nbBomb = 10;
+        nbBombSuiveuse = 5;
+        spawnCanon = false;
 
         delayShield = 0.5f;
         interruptor = 4;
@@ -97,48 +103,53 @@ public class Boss : MonoBehaviour
     {
         if (shield > 0)
         {
+            if (hasPlatforming)
+            {
+                TileMapGenerator.instance.RemoveAllInterruptorsBlocks();
+                PlayerManager.instance.Revive();
+            }
             currentState = State.Pattern1;
         }
-        else if (life >= (lifeMax / 4) * 3) //1er quart
+        else if (life >= (lifeMax / 3) * 2) //1er tier
         {
-            currentState = State.Pattern2;
+            currentState = State.Pattern1;
         }
-        else if (life >= (lifeMax / 4) * 2) //2e quart
+        else if (life >= (lifeMax / 3)) //2e tier
         {
-            if (quart == 4 && prevState == State.Pattern2)
+            if (tier == 3 && prevState == State.Pattern1)
             {
                 TileMapGenerator.instance.CleanLevelSpawnInterruptor();
-                quart = 3;
+                tier = 2;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
             {
-                PlayerManager.instance.Revive();
+               // Debug.Log("has platforming");
+                
                 currentState = State.Pattern2;
                 hasPlatforming = false;
             }
         }
-        else if (life >= (lifeMax / 4))//3e quart
+        else /*if (life >= (lifeMax / 3))*///3e tier
         {
-            if (quart == 3 && prevState == State.Pattern2)
-            {
-                //TileMapGenerator.instance.CleanLevelSpawnInterruptor();
-                quart = 2;
-                currentState = State.Platform;
-            }
-            else if (hasPlatforming)
-            {
-                PlayerManager.instance.Revive();
-                currentState = State.Pattern3;
-                hasPlatforming = false;
-            }
-        }
-        else //4e quart
-        {
-            if (quart == 2 && prevState == State.Pattern3)
+            if (tier == 2 && prevState == State.Pattern2)
             {
                 TileMapGenerator.instance.CleanLevelSpawnInterruptor();
-                quart = 1;
+                tier = 1;
+                currentState = State.Platform;
+            }
+            else if (hasPlatforming)
+            {
+                currentState = State.Pattern3;
+                hasPlatforming = false;
+            }
+        }
+        /*else //4e tier
+        {
+            if (tier == 2 && prevState == State.Pattern3)
+            {
+                TileMapGenerator.instance.CleanLevelSpawnInterruptor();
+                tier = 1;
                 currentState = State.Platform;
             }
             else if (hasPlatforming)
@@ -147,7 +158,7 @@ public class Boss : MonoBehaviour
                 currentState = State.Pattern3;
                 hasPlatforming = false;
             }
-        }
+        }*/
     }
 
     void ApplyState()
@@ -190,6 +201,8 @@ public class Boss : MonoBehaviour
         {
             timeToAttack = 0f;
             SpawnBomb();
+            SpawnBombSuiveuse();
+
         }
     }
 
@@ -199,6 +212,13 @@ public class Boss : MonoBehaviour
         {
             timeToAttack = 0f;
             SpawnBomb();
+            SpawnBombSuiveuse();
+            if(!spawnCanon)
+            {
+                SpawnCanon();
+                spawnCanon = true;
+            }
+            
         }
     }
 
@@ -211,6 +231,27 @@ public class Boss : MonoBehaviour
         }
     }
 
+    void SpawnBombSuiveuse()
+    {
+        for (int i = 0; i < nbBombSuiveuse; i++)
+        {
+            Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
+            Instantiate(bombSuiveuse, pos, Quaternion.identity);
+        }
+    }
+
+    void SpawnCanon()
+    {
+        GameObject canon1 = Instantiate(canon, new Vector3(2.0f, 0.0f, 1.0f), Quaternion.Euler(0, 180, 0)) as GameObject;
+
+        GameObject canon2 = Instantiate(canon, new Vector3(1.0f, 0.0f, TileMapGenerator.instance.tileMapSize -3), Quaternion.Euler(0, 270, 0)) as GameObject;
+
+        GameObject canon3 = Instantiate(canon, new Vector3(TileMapGenerator.instance.tileMapSize - 3, 0.0f, TileMapGenerator.instance.tileMapSize - 2), Quaternion.identity) as GameObject;
+
+        GameObject canon4 = Instantiate(canon, new Vector3(TileMapGenerator.instance.tileMapSize - 2, 0.0f, 2.0f), Quaternion.Euler(0, 90, 0)) as GameObject;
+        
+    }
+    
     void Platforming()
     {
         timeToShield += Time.deltaTime;
@@ -276,7 +317,10 @@ public class Boss : MonoBehaviour
         if (interruptor == 0)
         {
             CompletePlatforming();
-            TileMapGenerator.instance.DestructibleBlockGeneration();
+            if(prevState == State.Pattern2)
+            {
+                TileMapGenerator.instance.DestructibleBlockGeneration();
+            }
             interruptor = 4;
         }
     }

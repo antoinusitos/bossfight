@@ -38,7 +38,7 @@ public class bombeSuiveuse : MonoBehaviour {
         degatsBlocks = 1;
         porte = 3;
         speed = 5;
-        delayExplode = 10.0f;
+        delayExplode = 5.0f;
         timeToExplode = 0.0f;
 
 
@@ -78,7 +78,7 @@ public class bombeSuiveuse : MonoBehaviour {
 	
 	}
 
-        void sendDegat()
+    void sendDegat()
     {
         //board = Manager.instance.board;
         RaycastHit hit;
@@ -209,7 +209,7 @@ public class bombeSuiveuse : MonoBehaviour {
 
     void calculDistance()
         {
-            float distance = 9999999.0f;
+            float distance = Mathf.Infinity;
             float distanceBombePlayer;
            
 
@@ -231,15 +231,15 @@ public class bombeSuiveuse : MonoBehaviour {
 
     void FollowPlayer()
     {
-
-        //transform.LookAt(nearestPlayer.transform.position);
-        transform.position = Vector3.MoveTowards(gameObject.transform.position, nearestPlayer.transform.position, speed * Time.deltaTime);
-
+        if(nearestPlayer != null)
+        {
+            transform.position = Vector3.MoveTowards(gameObject.transform.position, nearestPlayer.transform.position, speed * Time.deltaTime);
+        }
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag != "Ground" && collider.gameObject.name != "Bullet(Clone)")
+        if (collider.gameObject.tag != "Ground" && collider.gameObject.name != "Bullet(Clone)" && collider.gameObject.tag != "Boss")
         {
             sendDegat();
             Instantiate(explosionFx, transform.position, Quaternion.identity);

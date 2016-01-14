@@ -18,4 +18,6 @@ public class SpawnBomb : MonoBehaviour {
     public GameObject canon;
 
     public GameObject Door;
+
+    public GameObject RespawnZone;
 }

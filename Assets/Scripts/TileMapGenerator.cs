@@ -179,7 +179,7 @@ public class TileMapGenerator : MonoBehaviour
 
     }
 
-    void RemoveAllInterruptorsBlocks()
+    public void RemoveAllInterruptorsBlocks()
     {
         for (int i = 0; i < interruptorBlock.Count; ++i)
         {
