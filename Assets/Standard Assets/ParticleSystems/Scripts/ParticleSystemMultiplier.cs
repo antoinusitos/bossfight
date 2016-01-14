@@ -23,7 +23,7 @@ namespace UnityStandardAssets.Effects
             }
 
 
-            Destroy(gameObject, 3f);
+           // Destroy(gameObject, 3f);
         }
 
     }

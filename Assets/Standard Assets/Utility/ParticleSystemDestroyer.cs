@@ -32,7 +32,7 @@ namespace UnityStandardAssets.Utility
 
             float stopTime = Time.time + Random.Range(minDuration, maxDuration);
 
-            while (Time.time < stopTime || m_EarlyStop)
+            while (true)
             {
                 yield return null;
             }
@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Utility
             // wait for any remaining particles to expire
             yield return new WaitForSeconds(m_MaxLifetime);
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
 
