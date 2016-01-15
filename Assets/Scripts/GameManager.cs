@@ -108,14 +108,23 @@ public class GameManager : MonoBehaviour {
 
     public void ActiveEndGameVictory()
     {
-        panelEndGame.SetActive(true);
-        panelEndGame.transform.GetChild(0).gameObject.SetActive(true);
+        if(gameState != GameState.End)
+        {
+            gameState = GameState.End;
+            panelEndGame.SetActive(true);
+            panelEndGame.transform.GetChild(0).gameObject.SetActive(true);
+        }
+       
     }
 
     public void ActiveEndGameDefeat()
     {
-        panelEndGame.SetActive(true);
-        panelEndGame.transform.GetChild(1).gameObject.SetActive(true);
+        if (gameState != GameState.End)
+        {
+            gameState = GameState.End;
+            panelEndGame.SetActive(true);
+            panelEndGame.transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
     
 

@@ -168,6 +168,7 @@ public class PlayerScript : MonoBehaviour {
 
     public void TakeDamage(int theDamage)
     {
+        ShakeManager.instance.LetsShake(100);
         life -= theDamage;
         if (playerNumber == 1)
             UIManager.instance.ActutaliseP1(life);

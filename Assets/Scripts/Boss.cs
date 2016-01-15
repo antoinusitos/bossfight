@@ -19,6 +19,7 @@ public class Boss : MonoBehaviour
     public int shieldMax;
     public State currentState;
     public State prevState;
+    public State prevAttackState;
     public float timeToAttack;
     public float delayAttack;
     public float timeToShield;
@@ -49,6 +50,7 @@ public class Boss : MonoBehaviour
         shield = shieldMax;
         currentState = State.Pattern1;
         prevState = currentState;
+        prevAttackState = prevState;
         timeToAttack = 0f;
         delayAttack = 5.0f;
         hasPlatforming = false;
@@ -107,8 +109,23 @@ public class Boss : MonoBehaviour
             {
                 TileMapGenerator.instance.RemoveAllInterruptorsBlocks();
                 PlayerManager.instance.Revive();
+                if (prevAttackState == State.Pattern1)
+                {
+                    Debug.Log("lol");
+                    currentState = State.Pattern2;
+                }
+                else if (prevAttackState == State.Pattern2)
+                {
+                    currentState = State.Pattern3;
+                }
+                else
+                {
+                    Debug.Log("lolilol");
+                    currentState = State.Pattern1;
+                }
             }
-            currentState = State.Pattern1;
+            
+            
         }
         else if (life >= (lifeMax / 3) * 2) //1er tier
         {
@@ -150,12 +167,15 @@ public class Boss : MonoBehaviour
         switch (currentState)
         {
             case State.Pattern1:
+                prevAttackState = State.Pattern1;
                 Pattern1();
                 break;
             case State.Pattern2:
+                prevAttackState = State.Pattern2;
                 Pattern2();
                 break;
             case State.Pattern3:
+                prevAttackState = State.Pattern3;
                 Pattern3();
                 break;
             case State.Platform:

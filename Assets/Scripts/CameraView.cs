@@ -20,8 +20,9 @@ public class CameraView : MonoBehaviour {
         }
         else if(GameManager.instance.gameState == GameManager.GameState.Game)
         {
-            transform.position = new Vector3(11, 22, 10.5f);
-            Camera.main.orthographicSize = 11;
+            //transform.position = new Vector3(11, 22, 10.5f);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(11, 22, 10.5f), Time.deltaTime );
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 11, Time.deltaTime);
         }
         
 
@@ -33,7 +34,8 @@ public class CameraView : MonoBehaviour {
         {
             Vector3 centerCam = (PlayerManager.instance.players[0].transform.position + PlayerManager.instance.players[1].transform.position) / 2;
             float distance = Vector3.Distance(PlayerManager.instance.players[0].transform.position, PlayerManager.instance.players[1].transform.position);
-            transform.position = new Vector3(centerCam.x , 22, centerCam.z);
+            //transform.position = new Vector3(centerCam.x , 22, centerCam.z);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(centerCam.x, 22, centerCam.z), Time.deltaTime * 4.0f);
             float cameraSize = Camera.main.orthographicSize;
             if (cameraSize <6 )
             {
@@ -61,7 +63,8 @@ public class CameraView : MonoBehaviour {
 
             centerCam = (betweenCenterPlayer1 + betweenCenters) / 2;
             float distance = Vector3.Distance(PlayerManager.instance.players[0].transform.position, betweenPlayers2_3);
-            transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+            //transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(centerCam.x, 22, centerCam.z), Time.deltaTime * 4.0f);
             float cameraSize = Camera.main.orthographicSize;
             if (cameraSize < 6)
             {
@@ -81,7 +84,8 @@ public class CameraView : MonoBehaviour {
 
             centerCam = (betweenPlayers1_2 + betweenPlayers3_4) / 2;
             float distance = Vector3.Distance(betweenPlayers1_2, betweenPlayers3_4);
-            transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+            //transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(centerCam.x, 22, centerCam.z), Time.deltaTime * 4.0f);
             float cameraSize = Camera.main.orthographicSize;
             if (cameraSize < 6)
             {
@@ -98,7 +102,8 @@ public class CameraView : MonoBehaviour {
             if (PlayerManager.instance.players.Count > 0)
             {
                 centerCam = PlayerManager.instance.players[0].transform.position;
-                transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+                //transform.position = new Vector3(centerCam.x, 22, centerCam.z);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(centerCam.x, 22, centerCam.z), Time.deltaTime * 4.0f);
                 Camera.main.orthographicSize = 6;
             }
         }
