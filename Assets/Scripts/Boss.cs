@@ -263,7 +263,7 @@ public class Boss : MonoBehaviour
         if (timeToShield >= delayShield)
         {
             timeToShield = 0f;
-            shield++;
+            shield+=3;
             UIManager.instance.ActutaliseBossShield(shield, shieldMax);
         }
         if (shield >= shieldMax)

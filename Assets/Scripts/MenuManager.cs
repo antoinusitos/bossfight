@@ -31,6 +31,12 @@ public class MenuManager : MonoBehaviour {
     public Material P4Mat;
     public Material PDefault;
 
+    public Sprite p1Sprite;
+    public Sprite p2Sprite;
+    public Sprite p3Sprite;
+    public Sprite p4Sprite;
+    public Sprite defaultSprite;
+
     bool player1Ready = false;
     bool player2Ready = false;
     bool player3Ready = false;
@@ -81,7 +87,8 @@ public class MenuManager : MonoBehaviour {
                     player1Ready = !player1Ready;
                     player1UI.GetComponent<Image>().sprite = ready;
                     player1Button.GetComponent<Image>().material = B;
-                    player1Fond.GetComponent<Image>().color = P1Mat.color;
+                    player1Fond.GetComponent<Image>().color = new Color(1,1,1);
+                    player1Fond.GetComponent<Image>().sprite = p1Sprite;
                 }
             }
             if (Input.GetButtonDown("Cancel_1"))
@@ -93,6 +100,7 @@ public class MenuManager : MonoBehaviour {
                     player1UI.GetComponent<Image>().sprite = notReady;
                     player1Button.GetComponent<Image>().material = A;
                     player1Fond.GetComponent<Image>().color = PDefault.color;
+                    player1Fond.GetComponent<Image>().sprite = defaultSprite;
                 }
             }
 
@@ -104,7 +112,8 @@ public class MenuManager : MonoBehaviour {
                     player2Ready = !player2Ready;
                     player2UI.GetComponent<Image>().sprite = ready;
                     player2Button.GetComponent<Image>().material = B;
-                    player2Fond.GetComponent<Image>().color = P2Mat.color;
+                    player2Fond.GetComponent<Image>().color = new Color(1, 1, 1);
+                    player2Fond.GetComponent<Image>().sprite = p2Sprite;
                 }
             }
             if (Input.GetButtonDown("Cancel_2"))
@@ -116,6 +125,7 @@ public class MenuManager : MonoBehaviour {
                     player2UI.GetComponent<Image>().sprite = notReady;
                     player2Button.GetComponent<Image>().material = A;
                     player2Fond.GetComponent<Image>().color = PDefault.color;
+                    player2Fond.GetComponent<Image>().sprite = defaultSprite;
                 }
             }
 
@@ -127,7 +137,8 @@ public class MenuManager : MonoBehaviour {
                     player3Ready = !player3Ready;
                     player3UI.GetComponent<Image>().sprite = ready;
                     player3Button.GetComponent<Image>().material = B;
-                    player3Fond.GetComponent<Image>().color = P3Mat.color;
+                    player3Fond.GetComponent<Image>().color = new Color(1,1,1);
+                    player3Fond.GetComponent<Image>().sprite = p3Sprite;
                 }
             }
             if (Input.GetButtonDown("Cancel_3"))
@@ -139,6 +150,7 @@ public class MenuManager : MonoBehaviour {
                     player3UI.GetComponent<Image>().sprite = notReady;
                     player3Button.GetComponent<Image>().material = A;
                     player3Fond.GetComponent<Image>().color = PDefault.color;
+                    player3Fond.GetComponent<Image>().sprite = defaultSprite;
                 }
             }
 
@@ -150,7 +162,8 @@ public class MenuManager : MonoBehaviour {
                     player4Ready = !player4Ready;
                     player4UI.GetComponent<Image>().sprite = ready;
                     player4Button.GetComponent<Image>().material = B;
-                    player4Fond.GetComponent<Image>().color = P4Mat.color;
+                    player4Fond.GetComponent<Image>().color = new Color(1,1,1);
+                    player4Fond.GetComponent<Image>().sprite = p4Sprite;
                 }
             }
             if (Input.GetButtonDown("Cancel_4"))
@@ -162,6 +175,7 @@ public class MenuManager : MonoBehaviour {
                     player4UI.GetComponent<Image>().sprite = notReady;
                     player4Button.GetComponent<Image>().material = A;
                     player4Fond.GetComponent<Image>().color = PDefault.color;
+                    player4Fond.GetComponent<Image>().sprite = defaultSprite;
                 }
             }
 
