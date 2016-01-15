@@ -43,7 +43,8 @@ public class Bombes : MonoBehaviour {
 
             if (parent != null)
                 parent.GetComponent<PlayerScript>().SetPeutPoser(true);
-            Instantiate(explosionFx, transform.position, Quaternion.identity);
+            GameObject theFx = (GameObject)Instantiate(explosionFx, transform.position, Quaternion.identity);
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             bombe.Play();
             Destroy(gameObject);
         }
@@ -80,11 +81,13 @@ public class Bombes : MonoBehaviour {
             }
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, Vector3.Distance(transform.position, hit.point));
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
@@ -115,10 +118,12 @@ public class Bombes : MonoBehaviour {
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
             theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, Vector3.Distance(transform.position, hit.point));
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
@@ -149,10 +154,12 @@ public class Bombes : MonoBehaviour {
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.right, Vector3.Distance(transform.position, hit.point));
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.right, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
@@ -183,10 +190,12 @@ public class Bombes : MonoBehaviour {
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.left, Vector3.Distance(transform.position, hit.point));
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.left, porte);
         }
     }

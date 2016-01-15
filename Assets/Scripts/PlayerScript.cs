@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour {
     public int life = 100;
 
     bool peutPoser = true;
+    bool canBeDeleted = true;
 
     public GameObject prefabBombe;
     public CharacterController cc;
@@ -38,6 +39,7 @@ public class PlayerScript : MonoBehaviour {
 		cc = GetComponent<CharacterController>();
         currentState = state.face;
         prevState = state.idle;
+        canBeDeleted = true;
 
         if (playerNumber == 1)
             UIManager.instance.ActutaliseP1(life);
@@ -125,6 +127,7 @@ public class PlayerScript : MonoBehaviour {
 
         if( move == false && currentState != state.idle)
         {
+            transform.GetChild(0).GetComponent<Animator>().speed = 0.5f;
             transform.GetChild(0).GetComponent<Animator>().SetTrigger("idle");
             currentState = state.idle;
         }
@@ -178,11 +181,12 @@ public class PlayerScript : MonoBehaviour {
             UIManager.instance.ActutaliseP3(life);
         else if (playerNumber == 4)
             UIManager.instance.ActutaliseP4(life);
-        if (life <= 0)
+        if (life <= 0 && canBeDeleted)
         {
+            canBeDeleted = false;
             PlayerManager.instance.PlayerDead(playerNumber);
             Instantiate(death, transform.position - new Vector3(0, 0.5f, 0), death.transform.rotation);
-            SoundManager.instance.Death.GetComponent<AudioSource>().PlayDelayed(.5f);
+            SoundManager.instance.Death.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
     }

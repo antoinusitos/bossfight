@@ -39,11 +39,14 @@ public class PatternCanon : MonoBehaviour {
 		{
             Transform bullet1 = Instantiate(bulletPrefab, transform.GetChild(1).transform.position, Quaternion.identity)as Transform;
             bullet1.GetComponent<Bullet>().direction = -transform.forward;
-			yield return new WaitForSeconds(2.0f);
+            bullet1.parent = GameManager.instance.ParentBomb.transform;
+            yield return new WaitForSeconds(2.0f);
             Transform bullet2 = Instantiate(bulletPrefab, transform.GetChild(0).transform.position, Quaternion.identity) as Transform;
             bullet2.GetComponent<Bullet>().direction = -transform.forward;
+            bullet2.parent = GameManager.instance.ParentBomb.transform;
             Transform bullet3 = Instantiate(bulletPrefab, transform.GetChild(2).transform.position, Quaternion.identity) as Transform;
             bullet3.GetComponent<Bullet>().direction = -transform.forward;
+            bullet3.parent = GameManager.instance.ParentBomb.transform;
 
             shootType = ShootType.Type2;
 		}
@@ -51,12 +54,15 @@ public class PatternCanon : MonoBehaviour {
 		{
             Transform bullet1 = Instantiate(bulletPrefab, transform.GetChild(0).transform.position, Quaternion.identity)as Transform;
             bullet1.GetComponent<Bullet>().direction = -transform.forward;
-            yield return new WaitForSeconds(1.0f);;
+            bullet1.parent = GameManager.instance.ParentBomb.transform;
+            yield return new WaitForSeconds(1.0f);
             Transform bullet2 = Instantiate(bulletPrefab, transform.GetChild(1).transform.position, Quaternion.identity) as Transform;
             bullet2.GetComponent<Bullet>().direction = -transform.forward;
+            bullet2.parent = GameManager.instance.ParentBomb.transform;
             yield return new WaitForSeconds(2.5f);
             Transform bullet3 = Instantiate(bulletPrefab, transform.GetChild(2).transform.position, Quaternion.identity) as Transform;
             bullet3.GetComponent<Bullet>().direction = -transform.forward;
+            bullet3.parent = GameManager.instance.ParentBomb.transform;
 
             shootType = ShootType.Type1;
 		}

@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     float currentTime;
     float maxTime;
 
+    public GameObject ParentBomb;
+
 	// Use this for initialization
 	void Start () 
     {

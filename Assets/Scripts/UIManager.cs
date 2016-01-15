@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
     public GameObject BossSlider;
     public GameObject BossSield;
     public GameObject Decompte;
+    public GameObject skipPanel;
 
     static UIManager mInst;
     static public UIManager instance { get { return mInst; } }
@@ -23,6 +24,22 @@ public class UIManager : MonoBehaviour {
         P2Slider.SetActive(false);
         P3Slider.SetActive(false);
         P4Slider.SetActive(false);
+    }
+
+    void Start()
+    {
+        StartCoroutine(TimeToSkip());
+    }
+
+    IEnumerator TimeToSkip()
+    {
+        yield return new WaitForSeconds(10);
+        HideSkip();
+    }
+
+    public void HideSkip()
+    {
+        skipPanel.SetActive(false);
     }
 
     public void UpdateCompteur(int l)
@@ -50,14 +67,14 @@ public class UIManager : MonoBehaviour {
         P4Slider.GetComponent<Slider>().value = (float)life / 100.0f;
     }
 
-    public void ActutaliseBoss(int life)
+    public void ActutaliseBoss(int life, int lifeMax)
     {
-        BossSlider.GetComponent<Slider>().value = (float)life / 1000.0f;
+        BossSlider.GetComponent<Slider>().value = (float)life / lifeMax;
     }
 
-    public void ActutaliseBossShield(int shield)
+    public void ActutaliseBossShield(int shield, int ShieldMax)
     {
-        BossSield.GetComponent<Slider>().value = (float)shield / 150.0f;
+        BossSield.GetComponent<Slider>().value = (float)shield / (float)ShieldMax;
     }
 
     public void ShowP1Life()

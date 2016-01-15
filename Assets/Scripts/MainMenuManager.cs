@@ -28,6 +28,7 @@ public class MainMenuManager : MonoBehaviour {
     {
         if(currentState == state.play)
         {
+            SoundManager.instance.validationMenu.Play();
             thePlay.GetComponent<Text>().color = new Color(0, 1, 0);
             thePlay.GetComponent<Text>().fontStyle = FontStyle.Bold;
             theEnd.GetComponent<Text>().color = new Color(1, 1, 1);
@@ -37,6 +38,7 @@ public class MainMenuManager : MonoBehaviour {
         }
         else if (currentState == state.quit)
         {
+            SoundManager.instance.validationMenu.Play();
             thePlay.GetComponent<Text>().color = new Color(1, 1, 1);
             thePlay.GetComponent<Text>().fontStyle = FontStyle.Normal;
             theEnd.GetComponent<Text>().fontStyle = FontStyle.Bold;
@@ -56,17 +58,22 @@ public class MainMenuManager : MonoBehaviour {
     {
         if (Input.GetAxis("L_YAxis_1") < -0)
         {
-            ChangeState(state.play);
+            if(currentState == state.quit)
+                ChangeState(state.play);
         }
         else if (Input.GetAxis("L_YAxis_1") > 0)
         {
-            ChangeState(state.quit);
+            if (currentState == state.play)
+                ChangeState(state.quit);
         }
 
         if (Input.GetButtonDown("Jump_1"))
         {
             if (currentState == state.play)
+            {
+                SoundManager.instance.validationMenu.Play();
                 Application.LoadLevel("Selection");
+            }
             else
                 Application.Quit();
         }

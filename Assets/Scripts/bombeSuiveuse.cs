@@ -41,18 +41,6 @@ public class bombeSuiveuse : MonoBehaviour {
         delayExplode = 5.0f;
         timeToExplode = 0.0f;
 
-
-
-       /* player1 = PlayerManager.instance.playerInstance.transform;
-        player1 = PlayerManager.instance.player2Instance.transform;
-        player1 = PlayerManager.instance.player3Instance.transform;
-        player1 = PlayerManager.instance.player4Instance.transform; 
-
-        player1position = PlayerManager.instance.playerInstance.transform.position;
-        player2position = PlayerManager.instance.player2Instance.transform.position;
-        player3position = PlayerManager.instance.player3Instance.transform.position;
-        player4position = PlayerManager.instance.player4Instance.transform.position; */
-
         bombe = SoundManager.instance.bombeExplosion.GetComponent<AudioSource>();
 
         calculDistance();
@@ -69,7 +57,8 @@ public class bombeSuiveuse : MonoBehaviour {
         if (timeToExplode >= delayExplode)
         {
             sendDegat();
-            Instantiate(explosionFx, transform.position, Quaternion.identity);
+            GameObject theFx = (GameObject)Instantiate(explosionFx, transform.position, Quaternion.identity);
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             bombe.Play();
             Destroy(gameObject);
         }
@@ -106,11 +95,13 @@ public class bombeSuiveuse : MonoBehaviour {
             }
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, Vector3.Distance(transform.position, hit.point));
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.forward * porte, out hit, porte))
@@ -136,11 +127,13 @@ public class bombeSuiveuse : MonoBehaviour {
             }
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, Vector3.Distance(transform.position, hit.point));
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(-Vector3.forward, porte);
         }
         if (Physics.Raycast(transform.position, Vector3.right * porte, out hit, porte))
@@ -166,11 +159,13 @@ public class bombeSuiveuse : MonoBehaviour {
             }
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.right, Vector3.Distance(transform.position, hit.point));
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.right, porte);
         }
         if (Physics.Raycast(transform.position, -Vector3.right * porte, out hit, porte))
@@ -197,11 +192,13 @@ public class bombeSuiveuse : MonoBehaviour {
             }
 
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.left, Vector3.Distance(transform.position, hit.point));
         }
         else
         {
             GameObject theFx = Instantiate(fx, transform.position, Quaternion.identity) as GameObject;
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             theFx.GetComponent<Trainees>().SetDirection(Vector3.left, porte);
         }
     }
@@ -242,7 +239,8 @@ public class bombeSuiveuse : MonoBehaviour {
         if (collider.gameObject.tag != "Ground" && collider.gameObject.name != "Bullet(Clone)" && collider.gameObject.tag != "Boss")
         {
             sendDegat();
-            Instantiate(explosionFx, transform.position, Quaternion.identity);
+            GameObject theFx = (GameObject)Instantiate(explosionFx, transform.position, Quaternion.identity);
+            theFx.transform.parent = GameManager.instance.ParentBomb.transform;
             bombe.Play();
             Destroy(gameObject);
         }

@@ -44,9 +44,9 @@ public class Boss : MonoBehaviour
     void Start()
     {
         tier = 3;
-        lifeMax = 1000;
+        lifeMax = 1000 * PlayerManager.instance.nbPlayer;
         life = lifeMax;
-        shieldMax = 150;
+        shieldMax = lifeMax / 4;
         shield = shieldMax;
         currentState = State.Pattern1;
         prevState = currentState;
@@ -111,7 +111,6 @@ public class Boss : MonoBehaviour
                 PlayerManager.instance.Revive();
                 if (prevAttackState == State.Pattern1)
                 {
-                    Debug.Log("lol");
                     currentState = State.Pattern2;
                 }
                 else if (prevAttackState == State.Pattern2)
@@ -120,9 +119,9 @@ public class Boss : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("lolilol");
                     currentState = State.Pattern1;
                 }
+                hasPlatforming = false;
             }
             
             
@@ -231,7 +230,8 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < nbBomb; i++)
         {
             Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
-            Instantiate(bomb, pos, Quaternion.identity);
+            GameObject b = (GameObject)Instantiate(bomb, pos, Quaternion.identity);
+            b.transform.parent = GameManager.instance.ParentBomb.transform;
         }
     }
 
@@ -240,7 +240,8 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < nbBombSuiveuse; i++)
         {
             Vector3 pos = TileMapGenerator.instance.GetRandomBombPlace().GetPosition();
-            Instantiate(bombSuiveuse, pos, Quaternion.identity);
+            GameObject b = (GameObject)Instantiate(bombSuiveuse, pos, Quaternion.identity);
+            b.transform.parent = GameManager.instance.ParentBomb.transform;
         }
     }
 
@@ -263,7 +264,7 @@ public class Boss : MonoBehaviour
         {
             timeToShield = 0f;
             shield++;
-            UIManager.instance.ActutaliseBossShield(shield);
+            UIManager.instance.ActutaliseBossShield(shield, shieldMax);
         }
         if (shield >= shieldMax)
         {
@@ -295,14 +296,14 @@ public class Boss : MonoBehaviour
                 bossDamages.Play();
 
                 shield -= theDamage;
-                UIManager.instance.ActutaliseBossShield(shield);
+                UIManager.instance.ActutaliseBossShield(shield, shieldMax);
                 if (shield < 0)
                     shield = 0;
             }
             else
             {
                 life -= theDamage;
-                 UIManager.instance.ActutaliseBoss(life);
+                 UIManager.instance.ActutaliseBoss(life, lifeMax);
             }
             if (life <= 0)
             {

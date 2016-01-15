@@ -52,13 +52,11 @@ public class TileMapGenerator : MonoBehaviour
         DestructibleBlockGeneration();
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Debug.Log(destructibleBlock.Count);
             DoListOfInterruptorBlock(2);
             InstanciateInterruptorBlock();
         }
@@ -81,7 +79,6 @@ public class TileMapGenerator : MonoBehaviour
                 if (!((i >= x - 1 && i <= x + 1) && (j >= y - 1 && j <= y + 1)))
                 {
                     listBossBomb.Add(tileMap[CoordToIndex(i, j)]);
-                    // tileMap[CoordToIndex(i, j)].type = 1;
                 }
 
             }
@@ -254,13 +251,6 @@ public class TileMapGenerator : MonoBehaviour
 
         tutoPrefabInstance = (Transform)Instantiate(corridorPrefab, new Vector3(tileMapSize + 27.0f, 0.0f, tileMapSize / 2 - 4.0f), Quaternion.identity);
 
-        //ouverture sur couloir
-        /*if (CorridorLarger > 2)
-        {
-            
-
-           // CorridorGeneration();
-        }*/
     }
 
     void Generation()
@@ -284,52 +274,9 @@ public class TileMapGenerator : MonoBehaviour
                 t.transform.parent = parent.transform;
             }
         }
-        //pl = Instantiate (player, new Vector3 (tileMapSize / 2, 0, tileMapSize / 2), Quaternion.identity) as GameObject;
     }
 
-    void CorridorGeneration()
-    {
-        GameObject parent = GameObject.Find("LDCorridor");
 
-        if (!GameObject.Find("LDCorridor"))
-        {
-            parent = new GameObject("LDCorridor");
-        }
-        int index = 0;
-        for (int y = tileMapSize / 2 + 2; y >= 0; --y)
-        {
-            for (int x = tileMapSize; x < tileMapSize + CorridorLarger; ++x)
-            {
-                if (((x >= tileMapSize && x < tileMapSize + CorridorLarger - 1) && (y <= tileMapSize / 2 + 1 && y > tileMapSize / 2 - 2)) ||
-                    ((x >= tileMapSize + CorridorLarger - 4 && x < tileMapSize + CorridorLarger - 1) && (y <= tileMapSize / 2 - 2 && y > 0)))
-                {
-                    tileMapCorridor[index] = new Tile();
-                    tileMapCorridor[index].SetTile(x, y, 0);
-                }
-                else
-                {
-                    tileMapCorridor[index] = new Tile();
-                    tileMapCorridor[index].SetTile(x, y, 1);
-                }
-                index++;
-
-            }
-        }
-        /*************************/
-        index = 0;
-        for (int y = tileMapSize / 2 + 2; y >= 0; --y)
-        {
-            for (int x = tileMapSize; x < tileMapSize + CorridorLarger; ++x)
-            {
-                TileType tileT = tileType[tileMapCorridor[index].GetTypeAtCoord()];
-                t = (GameObject)Instantiate(tileT.tile, new Vector3(x, 0, y), Quaternion.identity);
-                t.transform.parent = parent.transform;
-                index++;
-            }
-        }
-
-
-    }
     public void DestructibleBlockGeneration()
     {
         if (listOfInterruptorBlock.Count> 0)
